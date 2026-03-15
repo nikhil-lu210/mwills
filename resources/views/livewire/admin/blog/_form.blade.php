@@ -1,13 +1,14 @@
 <flux:card>
     <form wire:submit="save" class="space-y-6">
-        <div class="grid gap-6 md:grid-cols-2">
-            <div class="space-y-6">
+        <div class="grid gap-6 grid-cols-12">
+            <div class="col-span-12 md:col-span-8">
                 <flux:field>
                     <flux:label>{{ __('Title') }}</flux:label>
                     <flux:input wire:model="title" placeholder="{{ __('Post title') }}" required />
                     <flux:error name="title" />
                 </flux:field>
-
+            </div>
+            <div class="col-span-12 md:col-span-4">
                 <flux:field>
                     <flux:label>{{ __('Category') }}</flux:label>
                     <flux:select wire:model="category" placeholder="{{ __('Select category') }}">
@@ -17,23 +18,19 @@
                     </flux:select>
                     <flux:error name="category" />
                 </flux:field>
-
-                <flux:field>
-                    <flux:label>{{ __('Read time (minutes)') }}</flux:label>
-                    <flux:input type="number" wire:model="read_time_minutes" min="1" max="120" placeholder="5" />
-                    <flux:error name="read_time_minutes" />
-                </flux:field>
-
-                <flux:field>
-                    <flux:checkbox wire:model="publish" :label="__('Publish now')" />
-                </flux:field>
             </div>
 
-            <div class="space-y-6">
+            <div class="col-span-12">
                 <flux:field>
                     <flux:label>{{ __('Excerpt') }}</flux:label>
                     <flux:textarea wire:model="excerpt" placeholder="{{ __('Short summary that appears in lists') }}" rows="3" />
                     <flux:error name="excerpt" />
+                </flux:field>
+            </div>
+
+            <div class="col-span-12">
+                <flux:field>
+                    <flux:checkbox wire:model="publish" :label="__('Publish now')" />
                 </flux:field>
             </div>
         </div>

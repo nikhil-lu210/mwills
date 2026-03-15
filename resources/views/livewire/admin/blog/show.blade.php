@@ -17,9 +17,6 @@
                 @endif
                 <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">
                     {{ $post->updated_at->format('M j, Y') }}
-                    @if($post->read_time_minutes)
-                        · {{ $post->read_time_minutes }} {{ __('min read') }}
-                    @endif
                 </flux:text>
             </div>
         </div>

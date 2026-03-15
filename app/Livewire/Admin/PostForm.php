@@ -21,8 +21,6 @@ class PostForm extends Component
 
     public string $body = '';
 
-    public ?int $read_time_minutes = null;
-
     public bool $publish = false;
 
     public function mount(?Post $post = null): void
@@ -33,7 +31,6 @@ class PostForm extends Component
             $this->category = $post->category ?? '';
             $this->excerpt = $post->excerpt ?? '';
             $this->body = $post->body ?? '';
-            $this->read_time_minutes = $post->read_time_minutes;
             $this->publish = $post->published_at !== null;
         }
     }
@@ -53,7 +50,6 @@ class PostForm extends Component
                 'category' => ['nullable', 'string', 'max:100'],
                 'excerpt' => ['nullable', 'string', 'max:500'],
                 'body' => ['nullable', 'string'],
-                'read_time_minutes' => ['nullable', 'integer', 'min:1', 'max:120'],
                 'publish' => ['boolean'],
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -71,7 +67,6 @@ class PostForm extends Component
                 'category' => $validated['category'] ?: null,
                 'excerpt' => $validated['excerpt'] ?: null,
                 'body' => $validated['body'] ?: null,
-                'read_time_minutes' => $validated['read_time_minutes'],
                 'published_at' => $validated['publish'] ? now() : null,
             ]);
             $this->toast(__('Post saved successfully.'), null, 5000, 'success');
@@ -84,7 +79,6 @@ class PostForm extends Component
                 'category' => $validated['category'] ?: null,
                 'excerpt' => $validated['excerpt'] ?: null,
                 'body' => $validated['body'] ?: null,
-                'read_time_minutes' => $validated['read_time_minutes'],
                 'published_at' => $validated['publish'] ? now() : null,
                 'user_id' => auth()->id(),
             ]);

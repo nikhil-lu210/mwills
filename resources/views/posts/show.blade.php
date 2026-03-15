@@ -18,9 +18,6 @@
                 <time datetime="{{ $post->published_at?->toIso8601String() }}">
                     {{ $post->published_at?->format('F j, Y') }}
                 </time>
-                @if($post->read_time_minutes)
-                    <span>{{ $post->read_time_minutes }} {{ __('min read') }}</span>
-                @endif
             </div>
         </header>
 
@@ -41,5 +38,40 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             </a>
         </footer>
+
+        @if($suggestedPosts && $suggestedPosts->isNotEmpty())
+            @php $suggestedCount = $suggestedPosts->count(); @endphp
+            <aside class="mt-16 pt-12 border-t border-gray-200" aria-label="{{ __('Suggested reads') }}">
+                <h2 class="font-display font-bold text-2xl text-navy mb-1">{{ __('Suggested reads') }}</h2>
+                <p class="text-sm text-slate mb-8">
+                    @if($post->category)
+                        {{ __('More from :category', ['category' => $post->category]) }}
+                    @else
+                        {{ __('More from The Intelligence Desk') }}
+                    @endif
+                </p>
+                <ul class="grid gap-6 {{ $suggestedCount === 1 ? 'grid-cols-1 max-w-md' : ($suggestedCount === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3') }} {{ $suggestedCount === 1 ? 'mx-auto' : '' }}">
+                    @foreach($suggestedPosts as $suggested)
+                        <li>
+                            <a href="{{ route('posts.show', $suggested->slug) }}" class="group block h-full">
+                                <article class="h-full flex flex-col rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-all duration-200 hover:shadow-md hover:border-gold/40 border-l-4 border-l-gold">
+                                    @if($suggested->category)
+                                        <span class="text-xs font-semibold uppercase tracking-wider text-gold mb-3 block">{{ $suggested->category }}</span>
+                                    @endif
+                                    <h3 class="font-display font-bold text-lg text-navy mb-2 line-clamp-2 group-hover:text-gold transition-colors">
+                                        {{ $suggested->title }}
+                                    </h3>
+                                    <p class="text-sm text-slate line-clamp-2 flex-1">{{ $suggested->excerpt ?: \Str::limit(strip_tags($suggested->body), 80) }}</p>
+                                    <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-gold mt-4 group-hover:text-navy transition-colors">
+                                        {{ __('Read more') }}
+                                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                                    </span>
+                                </article>
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
+            </aside>
+        @endif
     </article>
 </x-layouts.public>

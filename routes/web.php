@@ -11,7 +11,7 @@ Route::view('/services/strategy', 'services.strategy')->name('services.strategy'
 Route::view('/services/bd', 'services.bd')->name('services.bd');
 Route::view('/services/talent', 'services.talent')->name('services.talent');
 Route::view('/services/content', 'services.content')->name('services.content');
-Route::view('/intelligence', 'placeholder', ['title' => 'The Intelligence Desk', 'message' => 'Blog and insights coming in Phase 3.'])->name('intelligence');
+Route::get('/intelligence', [PostController::class, 'index'])->name('intelligence');
 Route::get('/intelligence/{slug}', [PostController::class, 'show'])->name('posts.show');
 Route::view('/about', 'about')->name('about');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
