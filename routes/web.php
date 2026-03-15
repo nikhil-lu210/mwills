@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admin\PostImageUploadController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 // Public site
@@ -10,6 +12,7 @@ Route::view('/services/bd', 'services.bd')->name('services.bd');
 Route::view('/services/talent', 'services.talent')->name('services.talent');
 Route::view('/services/content', 'services.content')->name('services.content');
 Route::view('/intelligence', 'placeholder', ['title' => 'The Intelligence Desk', 'message' => 'Blog and insights coming in Phase 3.'])->name('intelligence');
+Route::get('/intelligence/{slug}', [PostController::class, 'show'])->name('posts.show');
 Route::view('/about', 'about')->name('about');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
@@ -18,6 +21,8 @@ Route::view('/contact/thank-you', 'contact-thank-you')->name('contact.thank-you'
 // Admin (login required, no registration)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+
+    Route::post('dashboard/upload-image', PostImageUploadController::class)->name('admin.upload.image');
 
     Route::livewire('dashboard/posts', App\Livewire\Admin\PostList::class)->name('admin.posts.index');
     Route::livewire('dashboard/posts/create', App\Livewire\Admin\PostForm::class)->name('admin.posts.create');

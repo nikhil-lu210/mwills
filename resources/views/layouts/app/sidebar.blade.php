@@ -91,6 +91,16 @@
         </flux:header>
 
         <flux:main class="min-h-[calc(100vh-3.5rem)] lg:min-h-screen w-full flex flex-col items-stretch overflow-auto">
+            @if(session('success'))
+                <div class="mx-4 mt-4 sm:mx-6 sm:mt-6" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)">
+                    <flux:callout variant="success" icon="check-circle">{{ session('success') }}</flux:callout>
+                </div>
+            @endif
+            @if(session('error'))
+                <div class="mx-4 mt-4 sm:mx-6 sm:mt-6" x-data="{ show: true }" x-show="show">
+                    <flux:callout variant="danger" icon="x-circle">{{ session('error') }}</flux:callout>
+                </div>
+            @endif
             {{ $slot }}
         </flux:main>
 

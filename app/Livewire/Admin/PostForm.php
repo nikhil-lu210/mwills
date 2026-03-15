@@ -3,11 +3,14 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Post;
+use Flux\Concerns\InteractsWithComponents;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
 class PostForm extends Component
 {
+    use InteractsWithComponents;
+
     public ?int $postId = null;
 
     public string $title = '';
@@ -44,14 +47,20 @@ class PostForm extends Component
 
     public function save(): void
     {
-        $validated = $this->validate([
-            'title' => ['required', 'string', 'max:255'],
-            'category' => ['nullable', 'string', 'max:100'],
-            'excerpt' => ['nullable', 'string', 'max:500'],
-            'body' => ['nullable', 'string'],
-            'read_time_minutes' => ['nullable', 'integer', 'min:1', 'max:120'],
-            'publish' => ['boolean'],
-        ]);
+        try {
+            $validated = $this->validate([
+                'title' => ['required', 'string', 'max:255'],
+                'category' => ['nullable', 'string', 'max:100'],
+                'excerpt' => ['nullable', 'string', 'max:500'],
+                'body' => ['nullable', 'string'],
+                'read_time_minutes' => ['nullable', 'integer', 'min:1', 'max:120'],
+                'publish' => ['boolean'],
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $this->toast(__('Please fix the errors in the form.'), null, 6000, 'error');
+            session()->flash('error', __('Please fix the errors in the form.'));
+            throw $e;
+        }
 
         $slug = Str::slug($validated['title']);
         if ($this->postId) {
@@ -65,6 +74,8 @@ class PostForm extends Component
                 'read_time_minutes' => $validated['read_time_minutes'],
                 'published_at' => $validated['publish'] ? now() : null,
             ]);
+            $this->toast(__('Post saved successfully.'), null, 5000, 'success');
+            session()->flash('success', __('Post saved successfully.'));
             $this->redirect(route('admin.posts.edit', $post), navigate: true);
         } else {
             $post = Post::create([
@@ -77,6 +88,8 @@ class PostForm extends Component
                 'published_at' => $validated['publish'] ? now() : null,
                 'user_id' => auth()->id(),
             ]);
+            $this->toast(__('Post created successfully.'), null, 5000, 'success');
+            session()->flash('success', __('Post created successfully.'));
             $this->redirect(route('admin.posts.edit', $post), navigate: true);
         }
     }

@@ -3,18 +3,20 @@
 namespace App\Livewire\Admin;
 
 use App\Models\Post;
+use Flux\Concerns\InteractsWithComponents;
 use Livewire\Component;
 use Livewire\WithoutUrlPagination;
 use Livewire\WithPagination;
 
 class PostList extends Component
 {
-    use WithPagination, WithoutUrlPagination;
+    use InteractsWithComponents, WithPagination, WithoutUrlPagination;
 
     public function delete(int $id): void
     {
         Post::findOrFail($id)->delete();
-        $this->dispatch('post-deleted');
+        $this->toast(__('Post deleted.'), null, 5000, 'success');
+        session()->flash('success', __('Post deleted.'));
     }
 
     public function render()

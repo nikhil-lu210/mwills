@@ -39,6 +39,11 @@
                             </flux:table.cell>
                             <flux:table.cell>{{ $post->updated_at->format('M j, Y') }}</flux:table.cell>
                             <flux:table.cell class="text-end">
+                                @if($post->isPublished())
+                                    <flux:button size="sm" variant="ghost" :href="route('posts.show', $post->slug)" target="_blank">
+                                        {{ __('View') }}
+                                    </flux:button>
+                                @endif
                                 <flux:button size="sm" variant="ghost" :href="route('admin.posts.edit', $post)" wire:navigate>
                                     {{ __('Edit') }}
                                 </flux:button>

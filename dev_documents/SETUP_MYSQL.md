@@ -26,6 +26,12 @@ The project is configured to use **MySQL** (see `.env`: `DB_CONNECTION=mysql`).
    npm run build
    ```
 
+5b. **Storage link** (for blog post image uploads in the admin):
+   ```bash
+   php artisan storage:link
+   ```
+   This links `public/storage` to `storage/app/public` so uploaded post images are served correctly.
+
 6. **Create an admin user** (registration is disabled):
    ```bash
    php artisan db:seed
