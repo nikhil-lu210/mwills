@@ -90,7 +90,9 @@
             </flux:dropdown>
         </flux:header>
 
-        {{ $slot }}
+        <flux:main class="min-h-[calc(100vh-3.5rem)] lg:min-h-screen w-full flex flex-col items-stretch overflow-auto">
+            {{ $slot }}
+        </flux:main>
 
         @fluxScripts
     </body>

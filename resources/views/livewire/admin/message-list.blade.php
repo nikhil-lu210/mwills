@@ -1,32 +1,41 @@
 <div class="space-y-6">
-    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <flux:heading>{{ __('Consultation Messages') }}</flux:heading>
-        <flux:select wire:model.live="statusFilter" class="w-full sm:w-48">
-            <option value="">{{ __('All statuses') }}</option>
-            <option value="new">{{ __('New') }}</option>
-            <option value="read">{{ __('Read') }}</option>
-            <option value="replied">{{ __('Replied') }}</option>
-            <option value="archived">{{ __('Archived') }}</option>
-        </flux:select>
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+            <flux:heading>{{ __('Consultation Messages') }}</flux:heading>
+            <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">
+                {{ __('Review and triage enquiries from the public contact form.') }}
+            </flux:text>
+        </div>
+        <flux:field class="w-full sm:w-56">
+            <flux:label class="sr-only">{{ __('Filter by status') }}</flux:label>
+            <flux:select wire:model.live="statusFilter">
+                <option value="">{{ __('All statuses') }}</option>
+                <option value="new">{{ __('New') }}</option>
+                <option value="read">{{ __('Read') }}</option>
+                <option value="replied">{{ __('Replied') }}</option>
+                <option value="archived">{{ __('Archived') }}</option>
+            </flux:select>
+        </flux:field>
     </div>
 
-    <flux:card>
-        <flux:table>
-            <flux:columns>
-                <flux:column>{{ __('Name') }}</flux:column>
-                <flux:column>{{ __('Company') }}</flux:column>
-                <flux:column>{{ __('Area') }}</flux:column>
-                <flux:column>{{ __('Status') }}</flux:column>
-                <flux:column>{{ __('Date') }}</flux:column>
-                <flux:column class="text-end">{{ __('Actions') }}</flux:column>
-            </flux:columns>
-            <flux:rows>
+    <flux:card class="overflow-hidden">
+        <div class="min-w-0 overflow-x-auto">
+            <flux:table container:class="max-h-[70vh] min-w-[640px]">
+            <flux:table.columns>
+                <flux:table.column>{{ __('Name') }}</flux:table.column>
+                <flux:table.column>{{ __('Company') }}</flux:table.column>
+                <flux:table.column>{{ __('Area') }}</flux:table.column>
+                <flux:table.column>{{ __('Status') }}</flux:table.column>
+                <flux:table.column>{{ __('Date') }}</flux:table.column>
+                <flux:table.column class="text-end">{{ __('Actions') }}</flux:table.column>
+            </flux:table.columns>
+            <flux:table.rows>
                 @forelse($messages as $message)
-                    <flux:row>
-                        <flux:cell class="font-medium">{{ $message->name }}</flux:cell>
-                        <flux:cell>{{ $message->company }}</flux:cell>
-                        <flux:cell>{{ $message->area ?? '—' }}</flux:cell>
-                        <flux:cell>
+                    <flux:table.row>
+                        <flux:table.cell class="font-medium">{{ $message->name }}</flux:table.cell>
+                        <flux:table.cell>{{ $message->company }}</flux:table.cell>
+                        <flux:table.cell>{{ $message->area ?? '—' }}</flux:table.cell>
+                        <flux:table.cell>
                             @if($message->status === 'new')
                                 <flux:badge color="green">{{ __('New') }}</flux:badge>
                             @elseif($message->status === 'read')
@@ -36,23 +45,24 @@
                             @else
                                 <flux:badge color="zinc">{{ __('Archived') }}</flux:badge>
                             @endif
-                        </flux:cell>
-                        <flux:cell>{{ $message->created_at->format('M j, Y H:i') }}</flux:cell>
-                        <flux:cell class="text-end">
+                        </flux:table.cell>
+                        <flux:table.cell>{{ $message->created_at->format('M j, Y H:i') }}</flux:table.cell>
+                        <flux:table.cell class="text-end">
                             <flux:button size="sm" variant="ghost" :href="route('admin.messages.show', $message)" wire:navigate>
                                 {{ __('View') }}
                             </flux:button>
-                        </flux:cell>
-                    </flux:row>
+                        </flux:table.cell>
+                    </flux:table.row>
                 @empty
-                    <flux:row>
-                        <flux:cell colspan="6" class="text-center text-zinc-500 dark:text-zinc-400">
-                            {{ __('No messages yet.') }}
-                        </flux:cell>
-                    </flux:row>
+                    <flux:table.row>
+                        <flux:table.cell colspan="6" class="py-12 text-center">
+                            <flux:text class="text-zinc-500 dark:text-zinc-400">{{ __('No messages yet. Enquiries from the contact form will appear here.') }}</flux:text>
+                        </flux:table.cell>
+                    </flux:table.row>
                 @endforelse
-            </flux:rows>
+            </flux:table.rows>
         </flux:table>
+        </div>
         @if($messages->hasPages())
             <div class="mt-4">
                 {{ $messages->links() }}
