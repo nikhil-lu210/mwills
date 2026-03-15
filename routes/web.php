@@ -15,9 +15,16 @@ Route::get('/contact', [ContactController::class, 'show'])->name('contact');
 Route::post('/contact', [ContactController::class, 'store'])->name('contact.store');
 Route::view('/contact/thank-you', 'contact-thank-you')->name('contact.thank-you');
 
-// Auth
+// Admin (login required, no registration)
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'dashboard')->name('dashboard');
+
+    Route::livewire('dashboard/posts', App\Livewire\Admin\PostList::class)->name('admin.posts.index');
+    Route::livewire('dashboard/posts/create', App\Livewire\Admin\PostForm::class)->name('admin.posts.create');
+    Route::livewire('dashboard/posts/{post}/edit', App\Livewire\Admin\PostForm::class)->name('admin.posts.edit');
+
+    Route::livewire('dashboard/messages', App\Livewire\Admin\MessageList::class)->name('admin.messages.index');
+    Route::livewire('dashboard/messages/{message}', App\Livewire\Admin\MessageView::class)->name('admin.messages.show');
 });
 
 require __DIR__.'/settings.php';

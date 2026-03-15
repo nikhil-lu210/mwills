@@ -25,3 +25,14 @@ The project is configured to use **MySQL** (see `.env`: `DB_CONNECTION=mysql`).
    npm install
    npm run build
    ```
+
+6. **Create an admin user** (registration is disabled):
+   ```bash
+   php artisan db:seed
+   ```
+   This creates a user with email `test@example.com` (password from `UserFactory`). Or create one manually:
+   ```bash
+   php artisan tinker
+   >>> App\Models\User::create(['name' => 'Admin', 'email' => 'admin@example.com', 'password' => bcrypt('your-password')]);
+   ```
+   Then log in at `/login`.
