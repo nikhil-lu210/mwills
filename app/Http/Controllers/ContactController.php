@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\NewInquiryNotification;
 use App\Models\ConsultationMessage;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 
@@ -30,7 +33,7 @@ class ContactController extends Controller
             'email.email' => 'Please enter a valid email address.',
         ]);
 
-        ConsultationMessage::create([
+        $inquiry = ConsultationMessage::create([
             'name' => $validated['name'],
             'company' => $validated['company'],
             'email' => $validated['email'],
@@ -38,6 +41,19 @@ class ContactController extends Controller
             'message' => $validated['message'] ?? null,
             'status' => ConsultationMessage::STATUS_NEW,
         ]);
+
+        // Send notification email after the response is sent to avoid gateway timeouts.
+        // Mail is still sent directly (no queue); user gets redirect immediately.
+        $inquiryId = $inquiry->id;
+        app()->terminating(function () use ($inquiryId): void {
+            $inquiry = ConsultationMessage::find($inquiryId);
+            if ($inquiry) {
+                $adminEmail = User::query()->first()?->email ?? config('mail.from.address');
+                if ($adminEmail) {
+                    Mail::to($adminEmail)->send(new NewInquiryNotification($inquiry));
+                }
+            }
+        });
 
         return redirect()->route('contact.thank-you');
     }
