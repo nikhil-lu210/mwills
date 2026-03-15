@@ -1,0 +1,1008 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McWills Consulting | Intelligence. Strategy. Growth.</title>
+    <meta name="description" content="McWills Consulting is a business development consultancy specialising in market intelligence, growth strategy, talent solutions, and executive communications.">
+    
+    <!-- Google Fonts: Georgia (Closest available standard serif is typically system, but we use standard serif stacks to emulate Georgia) and Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#1A2B4A',
+                        gold: '#C9A042',
+                        offwhite: '#F4F6F9',
+                        slate: '#8A9BB0'
+                    },
+                    fontFamily: {
+                        display: ['Georgia', 'Times New Roman', 'serif'],
+                        body: ['Inter', 'Calibri', 'sans-serif'],
+                    },
+                    maxWidth: {
+                        'content': '1100px',
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom CSS for specific PRD requirements -->
+    <style>
+        /* Typography Scale & Weights */
+        h1, h2, .font-display { font-family: 'Georgia', serif; }
+        body { font-family: 'Inter', sans-serif; font-size: 16px; color: #1A2B4A; }
+        @media (max-width: 768px) { body { font-size: 15px; } }
+        
+        .nav-dropdown { display: none; }
+        .nav-dropdown.active { display: block; }
+        
+        /* Smooth transitions for page changes */
+        .page-section {
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+            display: none;
+        }
+        .page-section.active {
+            opacity: 1;
+            display: block;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Card Accents */
+        .service-card {
+            border-left: 4px solid #C9A042;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(26, 43, 74, 0.1);
+        }
+    </style>
+</head>
+<body class="bg-offwhite antialiased text-navy">
+
+    <!-- Sticky Navigation -->
+    <nav class="fixed w-full z-50 bg-white border-b border-gray-100 shadow-sm top-0 transition-all duration-300">
+        <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo area -->
+                <div class="flex-shrink-0 flex items-center cursor-pointer" onclick="navigate('home')">
+                    <span class="font-display font-bold text-2xl tracking-tight text-navy">
+                        MCWILLS <span class="text-gold">|</span> CONSULTING
+                    </span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link text-sm font-semibold text-navy hover:text-gold transition-colors" onclick="navigate('home')">Home</a>
+                    
+                    <!-- Dropdown -->
+                    <div class="relative group">
+                        <button class="nav-link text-sm font-semibold text-navy hover:text-gold transition-colors flex items-center" id="desktop-services-btn">
+                            What We Do
+                            <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="absolute left-0 mt-2 w-72 rounded-sm shadow-lg bg-white ring-1 ring-black ring-opacity-5 invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-all duration-200 border-t-2 border-gold">
+                            <div class="py-2" role="menu">
+                                <a href="#strategy" class="block px-4 py-3 text-sm text-navy hover:bg-offwhite hover:text-gold transition-colors" onclick="navigate('strategy')">Strategy & Market Intelligence</a>
+                                <a href="#bd" class="block px-4 py-3 text-sm text-navy hover:bg-offwhite hover:text-gold transition-colors" onclick="navigate('bd')">Business Development & Growth</a>
+                                <a href="#talent" class="block px-4 py-3 text-sm text-navy hover:bg-offwhite hover:text-gold transition-colors" onclick="navigate('talent')">Talent & People Solutions</a>
+                                <a href="#content" class="block px-4 py-3 text-sm text-navy hover:bg-offwhite hover:text-gold transition-colors" onclick="navigate('content')">Content & Communications</a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <a href="#intelligence" class="nav-link text-sm font-semibold text-navy hover:text-gold transition-colors" onclick="navigate('intelligence')">Intelligence</a>
+                    <a href="#about" class="nav-link text-sm font-semibold text-navy hover:text-gold transition-colors" onclick="navigate('about')">About</a>
+                    
+                    <button onclick="navigate('contact')" class="ml-4 px-6 py-2.5 border border-gold text-navy font-semibold text-sm rounded-sm hover:bg-gold hover:text-white transition-all duration-300">
+                        Book a Consultation
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-navy hover:text-gold focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 text-base font-semibold text-navy hover:text-gold" onclick="navigate('home')">Home</a>
+                <div class="px-3 py-2 text-base font-semibold text-navy">
+                    What We Do
+                    <div class="pl-4 mt-2 space-y-2 border-l-2 border-gold">
+                        <a href="#strategy" class="block text-sm text-navy hover:text-gold" onclick="navigate('strategy')">Strategy & Market Intelligence</a>
+                        <a href="#bd" class="block text-sm text-navy hover:text-gold" onclick="navigate('bd')">Business Development & Growth</a>
+                        <a href="#talent" class="block text-sm text-navy hover:text-gold" onclick="navigate('talent')">Talent & People Solutions</a>
+                        <a href="#content" class="block text-sm text-navy hover:text-gold" onclick="navigate('content')">Content & Communications</a>
+                    </div>
+                </div>
+                <a href="#intelligence" class="block px-3 py-2 text-base font-semibold text-navy hover:text-gold" onclick="navigate('intelligence')">Intelligence</a>
+                <a href="#about" class="block px-3 py-2 text-base font-semibold text-navy hover:text-gold" onclick="navigate('about')">About</a>
+                <button onclick="navigate('contact')" class="w-full text-left px-3 py-3 mt-4 bg-gold text-white font-semibold text-base">Book a Consultation</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main id="main-content" class="pt-20 min-h-screen">
+        
+        <!-- ============================================== -->
+        <!-- HOME PAGE -->
+        <!-- ============================================== -->
+        <div id="page-home" class="page-section active">
+            <!-- Hero Section -->
+            <section class="bg-navy text-white py-20 lg:py-32 relative overflow-hidden">
+                <div class="absolute inset-0 opacity-10 right-0 pointer-events-none flex justify-end items-center">
+                    <!-- Stylized Africa Map SVG bg element -->
+                    <svg viewBox="0 0 500 500" class="h-[150%] w-auto fill-gold transform translate-x-1/4">
+                        <path d="M125.7,112.1c25.3-21.2,60.1-28.8,92.5-30.5c34.8-1.9,69.5,4.7,100.8,19.3c15.2,7.1,30.3,16,42.5,27.6 c18.1,17.2,27.5,41.2,35.4,65.3c11.5,35,17.6,71.7,21.8,108.1c4,34.5,4.8,69.5-0.7,103.8c-4.4,27.6-13.8,55-30.1,77.9 c-16.1,22.7-39.2,40.1-65.6,49.5c-30.3,10.8-63.4,12.3-95.2,6.5c-30.7-5.6-59.5-19.1-84.3-37.4c-22.9-16.9-43-38.3-58.4-62.7 c-16.2-25.6-26.7-54.7-31.5-84.5c-5.1-31.8-3.4-64.4,4.2-95.5c7.3-29.8,20.5-57.8,38.6-82.2C102.6,131.6,113.8,122.1,125.7,112.1z"/>
+                    </svg>
+                </div>
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div class="max-w-3xl">
+                        <span class="text-gold tracking-widest text-xs font-bold uppercase mb-6 block">Intelligence. Strategy. Growth.</span>
+                        <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-[56px] leading-[1.15] mb-8">
+                            Your next market. Your next hire. Your next client. Your next story.<br/>
+                            <span class="text-gold">We build the intelligence and infrastructure that gets you there.</span>
+                        </h1>
+                        <p class="text-lg text-gray-300 mb-10 leading-relaxed font-body max-w-2xl">
+                            McWills Consulting is a business development consultancy specialising in market intelligence, growth strategy, talent solutions, and executive communications — with deep expertise in African market entry.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <button onclick="navigate('contact')" class="bg-gold text-navy font-semibold px-8 py-4 rounded-sm hover:bg-white transition-colors duration-300">
+                                Book a Consultation
+                            </button>
+                            <button class="border border-white/30 text-white font-semibold px-8 py-4 rounded-sm hover:bg-white/10 transition-colors duration-300">
+                                Download Africa Playbook
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Credibility Strip -->
+            <section class="bg-white border-b border-gray-200">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-gray-100 py-10">
+                        <div class="px-6 text-center">
+                            <div class="text-3xl font-display font-bold text-navy mb-2">3,000+</div>
+                            <div class="text-xs text-slate uppercase tracking-wide">Avg post impressions<br>Market intelligence</div>
+                        </div>
+                        <div class="px-6 text-center">
+                            <div class="text-3xl font-display font-bold text-navy mb-2">54</div>
+                            <div class="text-xs text-slate uppercase tracking-wide">African markets.<br>We know the right ones.</div>
+                        </div>
+                        <div class="px-6 text-center">
+                            <div class="text-3xl font-display font-bold text-navy mb-2">4</div>
+                            <div class="text-xs text-slate uppercase tracking-wide">Practice disciplines.<br>One partner.</div>
+                        </div>
+                        <div class="px-6 text-center">
+                            <div class="text-3xl font-display font-bold text-navy mb-2">360°</div>
+                            <div class="text-xs text-slate uppercase tracking-wide">Growth infrastructure<br>End-to-end execution</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Problem (Dark Section) -->
+            <section class="bg-navy py-24 text-center">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-3xl md:text-4xl text-white leading-tight">
+                        Most companies know exactly what they need — a new market, a better pipeline, the right hire, the words that convert. <br/><br/>
+                        <span class="text-gold">What they're missing is the expertise to execute it without the expensive lessons.</span>
+                    </h2>
+                </div>
+            </section>
+
+            <!-- Four Service Disciplines (Card Section) -->
+            <section class="bg-offwhite py-24">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <span class="text-gold tracking-widest text-xs font-bold uppercase mb-4 block">Our Practice Areas</span>
+                        <h2 class="font-display font-bold text-3xl md:text-4xl text-navy">Four disciplines. One growth infrastructure.</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Card 1 -->
+                        <div class="bg-white p-10 service-card">
+                            <h3 class="font-bold text-xl text-gold mb-3 font-body">Strategy & Market Intelligence</h3>
+                            <p class="text-navy font-semibold mb-6">Intelligence before a single euro is spent.</p>
+                            <ul class="space-y-3 text-slate text-sm mb-8">
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> Africa Market Entry strategy</li>
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> Deep competitor analysis</li>
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> Opportunity and white space mapping</li>
+                            </ul>
+                            <button onclick="navigate('strategy')" class="text-navy font-semibold text-sm hover:text-gold transition-colors inline-flex items-center">
+                                Learn More <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </button>
+                        </div>
+                        
+                        <!-- Card 2 -->
+                        <div class="bg-white p-10 service-card">
+                            <h3 class="font-bold text-xl text-gold mb-3 font-body">Business Development & Growth</h3>
+                            <p class="text-navy font-semibold mb-6">A pipeline is not a wish list. We build the infrastructure behind it.</p>
+                            <ul class="space-y-3 text-slate text-sm mb-8">
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> Qualified pipeline building</li>
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> Commercial partnership structuring</li>
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> Executive Assistant (BD-Focused) support</li>
+                            </ul>
+                            <button onclick="navigate('bd')" class="text-navy font-semibold text-sm hover:text-gold transition-colors inline-flex items-center">
+                                Learn More <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </button>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="bg-white p-10 service-card">
+                            <h3 class="font-bold text-xl text-gold mb-3 font-body">Talent & People Solutions</h3>
+                            <p class="text-navy font-semibold mb-6">The right people are a strategy decision, not an HR function.</p>
+                            <ul class="space-y-3 text-slate text-sm mb-8">
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> 360 manpower sourcing & placement</li>
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> Retained executive search mandates</li>
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> Recruitment advisory & workforce planning</li>
+                            </ul>
+                            <button onclick="navigate('talent')" class="text-navy font-semibold text-sm hover:text-gold transition-colors inline-flex items-center">
+                                Learn More <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </button>
+                        </div>
+
+                        <!-- Card 4 -->
+                        <div class="bg-white p-10 service-card">
+                            <h3 class="font-bold text-xl text-gold mb-3 font-body">Content & Communications</h3>
+                            <p class="text-navy font-semibold mb-6">What you say and how you say it is a competitive advantage.</p>
+                            <ul class="space-y-3 text-slate text-sm mb-8">
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> Executive ghostwriting & thought leadership</li>
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> High-stakes corporate copywriting</li>
+                                <li class="flex items-start"><span class="text-gold mr-2">▪</span> Strategic LinkedIn growth programming</li>
+                            </ul>
+                            <button onclick="navigate('content')" class="text-navy font-semibold text-sm hover:text-gold transition-colors inline-flex items-center">
+                                Learn More <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- The Flagship Proof Point (Africa) -->
+            <section class="bg-navy py-24 text-white">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-4xl border-l-4 border-gold pl-6 md:pl-10">
+                        <h2 class="font-display font-bold text-3xl md:text-[40px] leading-tight mb-8">
+                            P&G left. GSK left. Bayer left. Unilever cut manufacturing.<br/>
+                            <span class="text-slate text-2xl md:text-3xl">Every headline called it a warning. We call it a vacancy.</span>
+                        </h2>
+                        <p class="text-lg text-gray-300 font-body mb-8 leading-relaxed">
+                            Nigeria still has 220+ million people. The companies left because of model failure, not market failure. For the business that goes in prepared — that's not a risk. That's a runway.
+                        </p>
+                        <p class="text-gold font-semibold uppercase tracking-wider text-sm">
+                            This is the intelligence depth we bring to every engagement — across every service line.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Intelligence Preview -->
+            <section class="bg-white py-24 border-b border-gray-100">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-end mb-12 border-b border-gray-200 pb-6">
+                        <div>
+                            <span class="text-gold tracking-widest text-xs font-bold uppercase block mb-2">Insights</span>
+                            <h2 class="font-display font-bold text-3xl text-navy">From the Intelligence Desk</h2>
+                        </div>
+                        <button onclick="navigate('intelligence')" class="hidden md:inline-flex text-navy font-semibold text-sm hover:text-gold transition-colors items-center">
+                            View All <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Article 1 -->
+                        <article class="group cursor-pointer" onclick="navigate('intelligence')">
+                            <span class="text-xs font-bold text-gold uppercase tracking-wider mb-3 block">The Vacancy</span>
+                            <h3 class="font-display font-bold text-xl text-navy mb-3 group-hover:text-gold transition-colors">The Model, Not the Market, Determines Outcomes in West Africa</h3>
+                            <p class="text-slate text-sm mb-4 line-clamp-2">Why European standard operating procedures consistently fail in markets that require adaptive commercial architecture.</p>
+                            <span class="text-xs text-slate">5 min read</span>
+                        </article>
+                        
+                        <!-- Article 2 -->
+                        <article class="group cursor-pointer" onclick="navigate('intelligence')">
+                            <span class="text-xs font-bold text-gold uppercase tracking-wider mb-3 block">BD & Growth</span>
+                            <h3 class="font-display font-bold text-xl text-navy mb-3 group-hover:text-gold transition-colors">Enter Narrow. Scale with Evidence.</h3>
+                            <p class="text-slate text-sm mb-4 line-clamp-2">The fatal flaw in multi-country simultaneous expansion and why a single-node entry strategy preserves capital.</p>
+                            <span class="text-xs text-slate">4 min read</span>
+                        </article>
+
+                        <!-- Article 3 -->
+                        <article class="group cursor-pointer" onclick="navigate('intelligence')">
+                            <span class="text-xs font-bold text-gold uppercase tracking-wider mb-3 block">Talent Intelligence</span>
+                            <h3 class="font-display font-bold text-xl text-navy mb-3 group-hover:text-gold transition-colors">Why In-Market Leadership Hires Fail</h3>
+                            <p class="text-slate text-sm mb-4 line-clamp-2">The discrepancy between expat expectations and local market realities, and how to source leaders who bridge the gap.</p>
+                            <span class="text-xs text-slate">6 min read</span>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Homepage CTA Block -->
+            <section class="bg-navy py-24 text-center">
+                <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-4xl text-gold mb-6">Ready to move with intelligence?</h2>
+                    <p class="text-white text-lg font-body mb-10 leading-relaxed">
+                        Whether you're entering a new market, building a pipeline, making a key hire, or building the narrative that positions your business — let's have a conversation.
+                    </p>
+                    <button onclick="navigate('contact')" class="bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
+                        Book a Consultation
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SERVICE PAGE TEMPLATE: STRATEGY & MARKET INTELLIGENCE -->
+        <!-- ============================================== -->
+        <div id="page-strategy" class="page-section hidden">
+            <!-- Hero -->
+            <section class="bg-navy pt-32 pb-24 text-white">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <span class="text-gold tracking-widest text-xs font-bold uppercase mb-4 block">Strategy & Market Intelligence</span>
+                    <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-[56px] leading-[1.15] mb-6 max-w-4xl">
+                        Intelligence before a single euro is spent.
+                    </h1>
+                    <p class="text-lg text-gray-300 mb-10 max-w-2xl font-body">
+                        On-ground validated market entry strategy and competitive intelligence for companies moving into new markets — with a flagship focus on Africa.
+                    </p>
+                    <button onclick="navigate('contact')" class="bg-gold text-navy font-semibold px-8 py-3.5 rounded-sm hover:bg-white transition-colors duration-300">
+                        Book a Consultation
+                    </button>
+                </div>
+            </section>
+
+            <!-- The Problem -->
+            <section class="bg-navy py-16 border-t border-white/10 text-center">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-2xl md:text-3xl text-white">
+                        Most companies know the opportunity exists. We provide the intelligence to know how to move inside it without the expensive lessons.
+                    </h2>
+                </div>
+            </section>
+
+            <!-- What We Do -->
+            <section class="bg-offwhite py-24">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-3xl text-navy mb-12">What We Do</h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- Flagship -->
+                        <div class="bg-white p-8 service-card relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-gold text-navy text-[10px] font-bold px-3 py-1 uppercase tracking-wider">Flagship</div>
+                            <h3 class="font-bold text-xl text-navy mb-3">Africa Market Entry Intelligence</h3>
+                            <p class="text-slate text-sm mb-6">On-ground validated market entry strategy for European companies targeting Nigerian and broader African markets.</p>
+                            <ul class="space-y-2 text-navy text-sm font-medium">
+                                <li>▪ Validated Go-To-Market modeling</li>
+                                <li>▪ Regulatory & compliance landscaping</li>
+                                <li>▪ Local partnership vetting</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Competitor Analysis</h3>
+                            <p class="text-slate text-sm mb-6">Systematic mapping of competitive landscapes, positioning gaps, and strategic white space.</p>
+                            <ul class="space-y-2 text-navy text-sm font-medium">
+                                <li>▪ Market share estimation</li>
+                                <li>▪ Price and positioning analysis</li>
+                                <li>▪ Vulnerability identification</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Market Expansion Strategy</h3>
+                            <p class="text-slate text-sm mb-6">Geographic and demographic expansion roadmaps for companies moving into new markets globally.</p>
+                            <ul class="space-y-2 text-navy text-sm font-medium">
+                                <li>▪ Market selection modeling</li>
+                                <li>▪ Phased rollout planning</li>
+                                <li>▪ Resource allocation strategy</li>
+                            </ul>
+                        </div>
+
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Opportunity Mapping</h3>
+                            <p class="text-slate text-sm mb-6">Identifying and qualifying new market opportunities before committing capital or resources.</p>
+                            <ul class="space-y-2 text-navy text-sm font-medium">
+                                <li>▪ Primary and secondary research packages</li>
+                                <li>▪ Sector-specific data analysis</li>
+                                <li>▪ Feasibility assessments</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Proof Point specific to Strategy -->
+            <section class="bg-white py-20 border-b border-gray-100">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-offwhite p-10 md:p-16 rounded-sm border-l-4 border-gold">
+                        <span class="text-gold tracking-widest text-xs font-bold uppercase mb-4 block">Case Context</span>
+                        <h3 class="font-display font-bold text-2xl md:text-3xl text-navy mb-4">The MTN Nigeria Precedent</h3>
+                        <p class="text-slate font-body leading-relaxed max-w-3xl">
+                            In 2001, global telecom analysts warned against entering Nigeria. MTN entered anyway. Today, MTN Nigeria boasts over 77 million subscribers and accounts for roughly one-third of the entire group's revenue. The market rewards those who enter narrow, prepare deeply, and scale with evidence.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How We Work -->
+            <section class="bg-white py-24">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-3xl text-navy mb-12">How We Work: The 5-Step Entry Framework</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+                        <div class="p-6 border border-gray-100 bg-offwhite hover:border-gold transition-colors">
+                            <div class="text-gold font-display font-bold text-2xl mb-2">01</div>
+                            <h4 class="font-bold text-navy mb-2">Research</h4>
+                            <p class="text-xs text-slate">Deep-dive intelligence gathering beyond surface-level data.</p>
+                        </div>
+                        <div class="p-6 border border-gray-100 bg-offwhite hover:border-gold transition-colors">
+                            <div class="text-gold font-display font-bold text-2xl mb-2">02</div>
+                            <h4 class="font-bold text-navy mb-2">Validate</h4>
+                            <p class="text-xs text-slate">Testing assumptions against on-ground commercial realities.</p>
+                        </div>
+                        <div class="p-6 border border-gray-100 bg-offwhite hover:border-gold transition-colors">
+                            <div class="text-gold font-display font-bold text-2xl mb-2">03</div>
+                            <h4 class="font-bold text-navy mb-2">Connect</h4>
+                            <p class="text-xs text-slate">Securing the critical local partnerships and regulatory pathways.</p>
+                        </div>
+                        <div class="p-6 border border-gray-100 bg-offwhite hover:border-gold transition-colors">
+                            <div class="text-gold font-display font-bold text-2xl mb-2">04</div>
+                            <h4 class="font-bold text-navy mb-2">Enter</h4>
+                            <p class="text-xs text-slate">Executing the launch with a narrow, focused commercial mandate.</p>
+                        </div>
+                        <div class="p-6 border border-gray-100 bg-offwhite hover:border-gold transition-colors">
+                            <div class="text-gold font-display font-bold text-2xl mb-2">05</div>
+                            <h4 class="font-bold text-navy mb-2">Scale</h4>
+                            <p class="text-xs text-slate">Expanding operations based on generated evidence and revenue.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Who This Is For -->
+            <section class="bg-offwhite py-24">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-3xl text-navy mb-12">Who This Is For</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div>
+                            <h4 class="font-bold text-navy mb-3 text-lg border-b-2 border-gold pb-2 inline-block">SME Founders & Boards</h4>
+                            <p class="text-slate text-sm">European SMEs (€5M–€200M revenue) planning African market entry who need strategic clarity before capital deployment.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-navy mb-3 text-lg border-b-2 border-gold pb-2 inline-block">Corporate Strategy Teams</h4>
+                            <p class="text-slate text-sm">International expansion leads and investment teams inside European companies evaluating Africa exposure.</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-navy mb-3 text-lg border-b-2 border-gold pb-2 inline-block">Sector Specialists</h4>
+                            <p class="text-slate text-sm">Particularly relevant for firms in FMCG, infrastructure, fintech, agribusiness, energy, and healthcare.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CTA -->
+            <section class="bg-navy py-20 text-center">
+                <div class="max-w-3xl mx-auto px-4">
+                    <h2 class="font-display font-bold text-3xl text-gold mb-6">Stop guessing. Start executing.</h2>
+                    <button onclick="navigate('contact')" class="bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
+                        Discuss Your Market Strategy
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SERVICE PAGE TEMPLATE: BUSINESS DEVELOPMENT -->
+        <!-- ============================================== -->
+        <div id="page-bd" class="page-section hidden">
+            <!-- Utilizing the exact same structural template as Strategy -->
+            <section class="bg-navy pt-32 pb-24 text-white">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <span class="text-gold tracking-widest text-xs font-bold uppercase mb-4 block">Business Development & Growth</span>
+                    <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-[56px] leading-[1.15] mb-6 max-w-4xl">
+                        A pipeline is not a wish list. We build the infrastructure behind it.
+                    </h1>
+                    <p class="text-lg text-gray-300 mb-10 max-w-2xl font-body">
+                        We design repeatable routes to revenue. From commercial strategy and lead generation to BD-embedded executive support, we build the engine, not just the plan.
+                    </p>
+                    <button onclick="navigate('contact')" class="bg-gold text-navy font-semibold px-8 py-3.5 rounded-sm hover:bg-white transition-colors duration-300">
+                        Book a Consultation
+                    </button>
+                </div>
+            </section>
+
+            <section class="bg-navy py-16 border-t border-white/10 text-center">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-2xl md:text-3xl text-white">
+                        Most growth-stage companies have product-market fit. What they lack is a structured, aggressive commercial engine to capitalize on it.
+                    </h2>
+                </div>
+            </section>
+
+            <section class="bg-offwhite py-24">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-3xl text-navy mb-12">What We Do</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">BD Strategy & Pipeline Architecture</h3>
+                            <p class="text-slate text-sm mb-6">Commercial strategy for entering new relationships, markets, or verticals. From first contact to closed deal.</p>
+                            <ul class="space-y-2 text-navy text-sm font-medium"><li>▪ Go-To-Market playbooks</li><li>▪ Sales cycle optimization</li></ul>
+                        </div>
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Lead Generation</h3>
+                            <p class="text-slate text-sm mb-6">Prospecting strategy, ICP definition, outreach architecture, and qualified pipeline building.</p>
+                            <ul class="space-y-2 text-navy text-sm font-medium"><li>▪ Account mapping</li><li>▪ Multi-channel outreach campaigns</li></ul>
+                        </div>
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Partnership Development</h3>
+                            <p class="text-slate text-sm mb-6">Identifying, approaching, and structuring strategic partnerships and alliances that drive exponential growth.</p>
+                            <ul class="space-y-2 text-navy text-sm font-medium"><li>▪ Channel partner acquisition</li><li>▪ Joint venture structuring</li></ul>
+                        </div>
+                        <div class="bg-white p-8 service-card relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-navy text-white text-[10px] font-bold px-3 py-1 uppercase tracking-wider">Unique Offering</div>
+                            <h3 class="font-bold text-xl text-navy mb-3">Executive Assistant (BD-Focused)</h3>
+                            <p class="text-slate text-sm mb-6">Senior-level EA support embedded in business development operations: research, scheduling, stakeholder management.</p>
+                            <ul class="space-y-2 text-navy text-sm font-medium"><li>▪ Commercial correspondence</li><li>▪ Pipeline maintenance</li></ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!-- Omitting How We Work/Who This is for brevity, jumping to CTA to maintain file size but showing structure -->
+            <section class="bg-navy py-20 text-center">
+                <div class="max-w-3xl mx-auto px-4">
+                    <h2 class="font-display font-bold text-3xl text-gold mb-6">Stop hoping. Start hunting.</h2>
+                    <button onclick="navigate('contact')" class="bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
+                        Build Your Pipeline
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SERVICE PAGE TEMPLATE: TALENT & PEOPLE -->
+        <!-- ============================================== -->
+        <div id="page-talent" class="page-section hidden">
+            <section class="bg-navy pt-32 pb-24 text-white">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <span class="text-gold tracking-widest text-xs font-bold uppercase mb-4 block">Talent & People Solutions</span>
+                    <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-[56px] leading-[1.15] mb-6 max-w-4xl">
+                        The right people are a strategy decision, not an HR function.
+                    </h1>
+                    <p class="text-lg text-gray-300 mb-10 max-w-2xl font-body">
+                        We are not a recruitment agency. We are a talent intelligence partner. We source, assess, and secure the manpower that executes your growth strategy.
+                    </p>
+                    <button onclick="navigate('contact')" class="bg-gold text-navy font-semibold px-8 py-3.5 rounded-sm hover:bg-white transition-colors duration-300">
+                        Book a Consultation
+                    </button>
+                </div>
+            </section>
+            <section class="bg-navy py-16 border-t border-white/10 text-center">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-2xl md:text-3xl text-white">
+                        Scaling requires the right people, fast. Getting it wrong costs more than just recruitment fees—it costs momentum.
+                    </h2>
+                </div>
+            </section>
+            <!-- Content mapping... -->
+            <section class="bg-offwhite py-24">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-3xl text-navy mb-12">What We Do</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">360 Manpower Sourcing</h3>
+                            <p class="text-slate text-sm mb-6">End-to-end talent acquisition: from role scoping and sourcing to assessment, selection, and onboarding support.</p>
+                        </div>
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Executive Search</h3>
+                            <p class="text-slate text-sm mb-6">Senior and C-suite level search mandates across key markets. Confidential, rigorous, and retained.</p>
+                        </div>
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Recruitment Advisory</h3>
+                            <p class="text-slate text-sm mb-6">Independent advisory to leadership teams on hiring strategy, assessment frameworks, and recruitment process design.</p>
+                        </div>
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Market Mapping</h3>
+                            <p class="text-slate text-sm mb-6">Talent landscape intelligence: where the best people are, what they earn, and exactly how to attract them.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-navy py-20 text-center">
+                <div class="max-w-3xl mx-auto px-4">
+                    <h2 class="font-display font-bold text-3xl text-gold mb-6">Hire with precision.</h2>
+                    <button onclick="navigate('contact')" class="bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
+                        Discuss Your Talent Needs
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- SERVICE PAGE TEMPLATE: CONTENT & COMM -->
+        <!-- ============================================== -->
+        <div id="page-content" class="page-section hidden">
+            <section class="bg-navy pt-32 pb-24 text-white">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <span class="text-gold tracking-widest text-xs font-bold uppercase mb-4 block">Content & Communications</span>
+                    <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-[56px] leading-[1.15] mb-6 max-w-4xl">
+                        What you say and how you say it is a competitive advantage.
+                    </h1>
+                    <p class="text-lg text-gray-300 mb-10 max-w-2xl font-body">
+                        If you can explain what you know in a conversation, we can make sure the market sees it in writing. We turn executive expertise into scalable thought leadership.
+                    </p>
+                    <button onclick="navigate('contact')" class="bg-gold text-navy font-semibold px-8 py-3.5 rounded-sm hover:bg-white transition-colors duration-300">
+                        Book a Consultation
+                    </button>
+                </div>
+            </section>
+            <section class="bg-navy py-16 border-t border-white/10 text-center">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-2xl md:text-3xl text-white">
+                        Most leaders have deep expertise but lack the time or the exact words to project it. We solve the translation problem.
+                    </h2>
+                </div>
+            </section>
+            <section class="bg-offwhite py-24">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="font-display font-bold text-3xl text-navy mb-12">What We Do</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Ghostwriting</h3>
+                            <p class="text-slate text-sm mb-6">Long-form thought leadership, articles, reports, and books. We capture the principal's voice, build it, and scale it.</p>
+                        </div>
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">LinkedIn Content Strategy</h3>
+                            <p class="text-slate text-sm mb-6">Content planning, creation, and growth strategy for executives. (Our own content averages 3,000+ impressions per post—we eat our own cooking).</p>
+                        </div>
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Executive Communications</h3>
+                            <p class="text-slate text-sm mb-6">Speech writing, board-level presentations, investor narratives, and high-stakes messaging that commands the room.</p>
+                        </div>
+                        <div class="bg-white p-8 service-card">
+                            <h3 class="font-bold text-xl text-navy mb-3">Commercial Copywriting</h3>
+                            <p class="text-slate text-sm mb-6">Website copy, sales collateral, pitch decks, proposals, and email sequences designed to convert conversations into contracts.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="bg-navy py-20 text-center">
+                <div class="max-w-3xl mx-auto px-4">
+                    <h2 class="font-display font-bold text-3xl text-gold mb-6">Own your narrative.</h2>
+                    <button onclick="navigate('contact')" class="bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
+                        Discuss Your Content Strategy
+                    </button>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- INTELLIGENCE HUB -->
+        <!-- ============================================== -->
+        <div id="page-intelligence" class="page-section hidden">
+            <section class="bg-navy pt-32 pb-20 text-white border-b-4 border-gold">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-[56px] mb-6">The Intelligence Desk</h1>
+                    <p class="text-lg text-gray-300 font-body max-w-2xl mx-auto">
+                        Data-backed perspectives, market intelligence, and executive frameworks from the McWills Consulting practice.
+                    </p>
+                </div>
+            </section>
+            
+            <section class="bg-offwhite py-16">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <!-- Categories (Visual Only Simulation) -->
+                    <div class="flex flex-wrap gap-3 mb-12 justify-center">
+                        <span class="px-4 py-2 bg-navy text-white text-xs font-bold uppercase tracking-wider rounded-sm cursor-pointer">All</span>
+                        <span class="px-4 py-2 bg-white border border-gray-200 text-slate hover:border-gold hover:text-navy text-xs font-bold uppercase tracking-wider rounded-sm cursor-pointer transition-colors">Market Insights</span>
+                        <span class="px-4 py-2 bg-white border border-gray-200 text-slate hover:border-gold hover:text-navy text-xs font-bold uppercase tracking-wider rounded-sm cursor-pointer transition-colors">The Vacancy</span>
+                        <span class="px-4 py-2 bg-white border border-gray-200 text-slate hover:border-gold hover:text-navy text-xs font-bold uppercase tracking-wider rounded-sm cursor-pointer transition-colors">BD & Growth</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Simulated CMS Content -->
+                        <article class="bg-white p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <span class="text-xs font-bold text-gold uppercase tracking-wider mb-2 block">The Vacancy</span>
+                            <h3 class="font-display font-bold text-xl text-navy mb-3">The Model, Not the Market, Determines Outcomes in West Africa</h3>
+                            <p class="text-slate text-sm mb-4">Why European SOPs consistently fail in markets that require adaptive commercial architecture.</p>
+                            <a href="#" class="text-navy font-semibold text-sm hover:text-gold inline-flex items-center">Read Article &rarr;</a>
+                        </article>
+                        
+                        <article class="bg-white p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <span class="text-xs font-bold text-gold uppercase tracking-wider mb-2 block">Market Insights</span>
+                            <h3 class="font-display font-bold text-xl text-navy mb-3">54 Countries. Not One.</h3>
+                            <p class="text-slate text-sm mb-4">Correcting the single-market misconception European companies hold about African expansion.</p>
+                            <a href="#" class="text-navy font-semibold text-sm hover:text-gold inline-flex items-center">Read Article &rarr;</a>
+                        </article>
+
+                        <article class="bg-white p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <span class="text-xs font-bold text-gold uppercase tracking-wider mb-2 block">BD & Growth</span>
+                            <h3 class="font-display font-bold text-xl text-navy mb-3">Enter Narrow. Scale with Evidence.</h3>
+                            <p class="text-slate text-sm mb-4">The fatal flaw in multi-country simultaneous expansion and why a single-node strategy works.</p>
+                            <a href="#" class="text-navy font-semibold text-sm hover:text-gold inline-flex items-center">Read Article &rarr;</a>
+                        </article>
+
+                        <article class="bg-white p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <span class="text-xs font-bold text-gold uppercase tracking-wider mb-2 block">Talent Intelligence</span>
+                            <h3 class="font-display font-bold text-xl text-navy mb-3">Why In-Market Leadership Hires Fail</h3>
+                            <p class="text-slate text-sm mb-4">The discrepancy between expat expectations and local market realities.</p>
+                            <a href="#" class="text-navy font-semibold text-sm hover:text-gold inline-flex items-center">Read Article &rarr;</a>
+                        </article>
+                        
+                        <article class="bg-white p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <span class="text-xs font-bold text-gold uppercase tracking-wider mb-2 block">Content & Voice</span>
+                            <h3 class="font-display font-bold text-xl text-navy mb-3">The Invisible Executive</h3>
+                            <p class="text-slate text-sm mb-4">Companies with strong IP and expertise that remain completely invisible to the market.</p>
+                            <a href="#" class="text-navy font-semibold text-sm hover:text-gold inline-flex items-center">Read Article &rarr;</a>
+                        </article>
+                        
+                        <!-- Lead Magnet Promo -->
+                        <div class="bg-navy p-6 flex flex-col justify-center items-center text-center">
+                            <span class="text-gold font-bold uppercase tracking-wider text-xs mb-2">Free Resource</span>
+                            <h3 class="font-display font-bold text-xl text-white mb-4">The Africa Market Entry Playbook</h3>
+                            <button class="w-full bg-gold text-navy font-bold py-2 rounded-sm hover:bg-white transition-colors">Download PDF</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- ABOUT PAGE -->
+        <!-- ============================================== -->
+        <div id="page-about" class="page-section hidden">
+            <section class="bg-navy pt-32 pb-24 text-white">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-[56px] leading-[1.15] mb-6 max-w-4xl">
+                        Intelligence before assumption. execution over advice.
+                    </h1>
+                </div>
+            </section>
+
+            <section class="bg-offwhite py-24">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                        <!-- Image placeholder -->
+                        <div class="lg:col-span-5">
+                            <div class="bg-navy aspect-[3/4] rounded-sm relative shadow-xl overflow-hidden flex items-center justify-center">
+                                <!-- Placeholder for professional portrait (dark background, non-corporate) -->
+                                <span class="text-slate text-sm font-semibold tracking-widest uppercase">[ Founder Portrait ]</span>
+                            </div>
+                        </div>
+                        
+                        <div class="lg:col-span-7 flex flex-col justify-center">
+                            <span class="text-gold tracking-widest text-xs font-bold uppercase mb-4 block">The Practice</span>
+                            <h2 class="font-display font-bold text-3xl text-navy mb-6">Built to bridge the gap between European capital and African opportunity.</h2>
+                            
+                            <div class="space-y-6 text-slate font-body leading-relaxed">
+                                <p>
+                                    McWills Consulting is a business development consultancy serving growth-stage companies, leadership teams, and founders who need expert-level execution, not just theoretical advice.
+                                </p>
+                                <p>
+                                    We operate across four core disciplines—Strategy, BD, Talent, and Content. While our capabilities span global business development, our sharpest and most differentiated expertise lies in African market entry. With Nigerian roots and a Cyprus base, the founder established this practice to provide the on-ground intelligence European companies critically lack when looking South.
+                                </p>
+                                <p>
+                                    Our philosophy is simple: <strong class="text-navy font-semibold">Intelligence before assumption.</strong> We do not hand clients a report and wish them luck. Alongside our network of specialists and partners across Nigeria, West Africa, North Africa, and South Africa, we work the problem with you.
+                                </p>
+                            </div>
+
+                            <div class="mt-10 border-l-4 border-gold pl-6">
+                                <p class="font-display font-bold text-xl text-navy italic">
+                                    "If you want someone who has been in the problem before you have — let's talk."
+                                </p>
+                            </div>
+                            
+                            <div class="mt-10">
+                                <button onclick="navigate('contact')" class="bg-navy text-white font-semibold px-8 py-3 rounded-sm hover:bg-gold transition-colors duration-300">
+                                    Start a Conversation
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- CONTACT PAGE -->
+        <!-- ============================================== -->
+        <div id="page-contact" class="page-section hidden">
+            <section class="bg-offwhite py-24 min-h-screen">
+                <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="text-center mb-16">
+                        <h1 class="font-display font-bold text-4xl md:text-5xl text-navy mb-4">Let's have a conversation.</h1>
+                        <p class="text-slate font-body text-lg max-w-2xl mx-auto">
+                            Not a sales call. A conversation about your challenge. We'll tell you what we know and where we think the opportunity is.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
+                        <!-- Direct Form -->
+                        <div class="bg-white p-8 md:p-10 shadow-sm border border-gray-100 rounded-sm">
+                            <h3 class="font-bold text-xl text-navy mb-6">Send an Enquiry</h3>
+                            <form onsubmit="event.preventDefault(); alert('Form submitted. This would navigate to the Thank You page in production.');">
+                                <div class="space-y-5">
+                                    <div>
+                                        <label for="name" class="block text-sm font-semibold text-navy mb-1">Full Name *</label>
+                                        <input type="text" id="name" required class="w-full border border-gray-300 rounded-sm px-4 py-3 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-offwhite">
+                                    </div>
+                                    <div>
+                                        <label for="company" class="block text-sm font-semibold text-navy mb-1">Company Name *</label>
+                                        <input type="text" id="company" required class="w-full border border-gray-300 rounded-sm px-4 py-3 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-offwhite">
+                                    </div>
+                                    <div>
+                                        <label for="email" class="block text-sm font-semibold text-navy mb-1">Email Address *</label>
+                                        <input type="email" id="email" required class="w-full border border-gray-300 rounded-sm px-4 py-3 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-offwhite">
+                                    </div>
+                                    <div>
+                                        <label for="area" class="block text-sm font-semibold text-navy mb-1">Which area are you interested in?</label>
+                                        <select id="area" class="w-full border border-gray-300 rounded-sm px-4 py-3 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-offwhite text-navy">
+                                            <option>Strategy & Market Intelligence</option>
+                                            <option>Business Development & Growth</option>
+                                            <option>Talent & People Solutions</option>
+                                            <option>Content & Communications</option>
+                                            <option>Not sure yet</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="message" class="block text-sm font-semibold text-navy mb-1">Tell us what you're working on <span class="text-gray-400 font-normal">(Optional, 200 char max)</span></label>
+                                        <textarea id="message" rows="3" maxlength="200" class="w-full border border-gray-300 rounded-sm px-4 py-3 focus:outline-none focus:border-gold focus:ring-1 focus:ring-gold bg-offwhite resize-none"></textarea>
+                                    </div>
+                                    <button type="submit" class="w-full bg-navy text-white font-bold py-4 rounded-sm hover:bg-gold transition-colors duration-300 mt-2">
+                                        Start the Conversation
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Calendar Embed Placeholder -->
+                        <div class="bg-navy p-8 md:p-10 flex flex-col justify-center items-center rounded-sm text-center border-l-4 border-gold">
+                            <div class="w-16 h-16 bg-gold/20 rounded-full flex items-center justify-center mb-6">
+                                <svg class="w-8 h-8 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <h3 class="font-display font-bold text-2xl text-white mb-4">Book Directly</h3>
+                            <p class="text-gray-300 text-sm mb-8 leading-relaxed max-w-sm">
+                                Skip the form and schedule a 30-minute Discovery Call straight into the practice calendar.
+                            </p>
+                            <div class="w-full bg-white/5 border border-white/10 p-6 rounded-sm">
+                                <p class="text-slate text-xs uppercase tracking-widest font-bold mb-4">[ Calendly / TidyCal Embed Area ]</p>
+                                <button class="w-full bg-transparent border-2 border-gold text-gold font-bold py-3 rounded-sm hover:bg-gold hover:text-navy transition-colors">
+                                    Load Calendar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy py-12 border-t border-white/10 text-white">
+        <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-1 md:col-span-2">
+                    <span class="font-display font-bold text-2xl tracking-tight text-white mb-4 block">
+                        MCWILLS <span class="text-gold">|</span> CONSULTING
+                    </span>
+                    <p class="text-slate text-sm max-w-sm">
+                        Intelligence. Strategy. Growth. <br/>Where preparation meets execution.
+                    </p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gold text-sm uppercase tracking-wider mb-4">Practice Areas</h4>
+                    <ul class="space-y-2 text-sm text-slate">
+                        <li><a href="#strategy" onclick="navigate('strategy')" class="hover:text-white transition-colors">Strategy & Market Intelligence</a></li>
+                        <li><a href="#bd" onclick="navigate('bd')" class="hover:text-white transition-colors">Business Development & Growth</a></li>
+                        <li><a href="#talent" onclick="navigate('talent')" class="hover:text-white transition-colors">Talent & People Solutions</a></li>
+                        <li><a href="#content" onclick="navigate('content')" class="hover:text-white transition-colors">Content & Communications</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-gold text-sm uppercase tracking-wider mb-4">Company</h4>
+                    <ul class="space-y-2 text-sm text-slate">
+                        <li><a href="#intelligence" onclick="navigate('intelligence')" class="hover:text-white transition-colors">Intelligence Desk</a></li>
+                        <li><a href="#about" onclick="navigate('about')" class="hover:text-white transition-colors">About the Practice</a></li>
+                        <li><a href="#contact" onclick="navigate('contact')" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors flex items-center mt-4">
+                            LinkedIn <svg class="w-3 h-3 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+                        </a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate">
+                <p>&copy; 2026 McWills Consulting. All rights reserved.</p>
+                <div class="space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vanilla JS Router and Interaction Scripts -->
+    <script>
+        // Basic Router to handle "pages" in a single file
+        function navigate(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page-section').forEach(el => {
+                el.classList.remove('active');
+                setTimeout(() => el.style.display = 'none', 300); // match transition
+            });
+
+            // Show selected page
+            const targetPage = document.getElementById(`page-${pageId}`);
+            if (targetPage) {
+                setTimeout(() => {
+                    targetPage.style.display = 'block';
+                    // Force reflow
+                    void targetPage.offsetWidth;
+                    targetPage.classList.add('active');
+                    window.scrollTo(0, 0);
+                }, 300);
+            }
+
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+
+            // Update URL hash without jumping
+            history.pushState(null, null, `#${pageId}`);
+        }
+
+        // Handle initial load from hash
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && document.getElementById(`page-${hash}`)) {
+                navigate(hash);
+            } else {
+                navigate('home'); // Default
+            }
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Desktop Dropdown click handler (fallback for touch devices)
+        document.getElementById('desktop-services-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            // Tailwind group-hover handles CSS hover, this adds click safety for touch
+            const dropdown = e.currentTarget.nextElementSibling;
+            if(window.innerWidth < 1024) {
+               dropdown.classList.toggle('invisible');
+               dropdown.classList.toggle('opacity-0');
+            }
+        });
+    </script>
+</body>
+</html>
