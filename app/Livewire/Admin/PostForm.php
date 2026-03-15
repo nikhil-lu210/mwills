@@ -107,7 +107,17 @@ class PostForm extends Component
 
     public function render()
     {
-        return view('livewire.admin.post-form')
-            ->layout('layouts.app.sidebar', ['title' => $this->postId ? __('Edit Post') : __('New Post')]);
+        $title = $this->postId ? __('Edit Post') : __('Create Post');
+        $breadcrumbs = [
+            ['label' => __('Dashboard'), 'href' => route('dashboard')],
+            ['label' => __('Blogs'), 'href' => route('admin.posts.index')],
+            ['label' => __('All Posts'), 'href' => route('admin.posts.index')],
+            ['label' => $title, 'href' => null],
+        ];
+
+        $view = $this->postId ? 'livewire.admin.blog.edit' : 'livewire.admin.blog.create';
+
+        return view($view)
+            ->layout('layouts.app.sidebar', ['title' => $title, 'breadcrumbs' => $breadcrumbs]);
     }
 }

@@ -36,7 +36,15 @@ class MessageView extends Component
 
     public function render()
     {
-        return view('livewire.admin.message-view')
-            ->layout('layouts.app.sidebar', ['title' => __('Message')]);
+        return view('livewire.admin.message.show')
+            ->layout('layouts.app.sidebar', [
+                'title' => __('Message'),
+                'breadcrumbs' => [
+                    ['label' => __('Dashboard'), 'href' => route('dashboard')],
+                    ['label' => __('Messages'), 'href' => route('admin.messages.index')],
+                    ['label' => __('All Messages'), 'href' => route('admin.messages.index')],
+                    ['label' => __('Message'), 'href' => null],
+                ],
+            ]);
     }
 }

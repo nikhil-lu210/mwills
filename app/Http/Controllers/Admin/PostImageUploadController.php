@@ -15,8 +15,8 @@ class PostImageUploadController extends Controller
     public function __invoke(Request $request): JsonResponse
     {
         $request->validate([
-            'image' => ['required', 'image', 'max:2048'],
-        ]);
+            'image' => ['required', 'image', 'max:2048'], // 2MB max
+        ], [], ['image' => 'image file']);
 
         $file = $request->file('image');
         $name = Str::uuid().'.'.$file->getClientOriginalExtension();

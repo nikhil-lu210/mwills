@@ -11,15 +11,25 @@
             </flux:sidebar.header>
 
             <flux:sidebar.nav>
-                <flux:sidebar.group :heading="__('Admin')" class="grid">
+                <flux:sidebar.group class="grid">
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="document-text" :href="route('admin.posts.index')" :current="request()->routeIs('admin.posts.*')" wire:navigate>
-                        {{ __('Blog Posts') }}
+                </flux:sidebar.group>
+                <flux:sidebar.group :heading="__('Messages')" expandable :expanded="request()->routeIs('admin.messages.*')" icon="chat-bubble-left-right" class="grid">
+                    <flux:sidebar.item :href="route('admin.messages.index')" :current="request()->routeIs('admin.messages.index')" wire:navigate>
+                        {{ __('All Messages') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item icon="chat-bubble-left-right" :href="route('admin.messages.index')" :current="request()->routeIs('admin.messages.*')" wire:navigate>
-                        {{ __('Messages') }}
+                    <flux:sidebar.item :href="route('admin.messages.archived')" :current="request()->routeIs('admin.messages.archived')" wire:navigate>
+                        {{ __('Archived') }}
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
+                <flux:sidebar.group :heading="__('Blogs')" expandable :expanded="request()->routeIs('admin.posts.*')" icon="document-text" class="grid">
+                    <flux:sidebar.item :href="route('admin.posts.index')" :current="request()->routeIs('admin.posts.index')" wire:navigate>
+                        {{ __('All Posts') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('admin.posts.create')" :current="request()->routeIs('admin.posts.create')" wire:navigate>
+                        {{ __('Create Post') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
@@ -91,6 +101,22 @@
         </flux:header>
 
         <flux:main class="min-h-[calc(100vh-3.5rem)] lg:min-h-screen w-full flex flex-col items-stretch overflow-auto">
+            <div class="mx-4 mt-4 sm:mx-6 sm:mt-6 mb-4">
+                @if(isset($breadcrumbs) && is_array($breadcrumbs) && count($breadcrumbs) > 0)
+                    <flux:breadcrumbs class="mb-2">
+                        @foreach($breadcrumbs as $crumb)
+                            @if(!empty($crumb['href']))
+                                <flux:breadcrumbs.item :href="$crumb['href']" wire:navigate>{{ $crumb['label'] }}</flux:breadcrumbs.item>
+                            @else
+                                <flux:breadcrumbs.item>{{ $crumb['label'] }}</flux:breadcrumbs.item>
+                            @endif
+                        @endforeach
+                    </flux:breadcrumbs>
+                @endif
+                @if(!empty($title))
+                    <flux:heading size="lg">{{ $title }}</flux:heading>
+                @endif
+            </div>
             @if(session('success'))
                 <div class="mx-4 mt-4 sm:mx-6 sm:mt-6" x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 5000)">
                     <flux:callout variant="success" icon="check-circle">{{ session('success') }}</flux:callout>
@@ -101,7 +127,9 @@
                     <flux:callout variant="danger" icon="x-circle">{{ session('error') }}</flux:callout>
                 </div>
             @endif
-            {{ $slot }}
+            <div class="px-4 pb-8 sm:px-6">
+                {{ $slot }}
+            </div>
         </flux:main>
 
         @fluxScripts

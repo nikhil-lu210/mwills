@@ -21,10 +21,17 @@ class PostList extends Component
 
     public function render()
     {
-        return view('livewire.admin.post-list', [
+        return view('livewire.admin.blog.index', [
             'posts' => Post::query()
                 ->latest('updated_at')
                 ->paginate(10),
-        ])->layout('layouts.app.sidebar', ['title' => __('Blog Posts')]);
+        ])->layout('layouts.app.sidebar', [
+            'title' => __('All Posts'),
+            'breadcrumbs' => [
+                ['label' => __('Dashboard'), 'href' => route('dashboard')],
+                ['label' => __('Blogs'), 'href' => route('admin.posts.index')],
+                ['label' => __('All Posts'), 'href' => null],
+            ],
+        ]);
     }
 }

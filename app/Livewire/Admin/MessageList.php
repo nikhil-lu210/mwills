@@ -25,8 +25,15 @@ class MessageList extends Component
             $query->where('status', $this->statusFilter);
         }
 
-        return view('livewire.admin.message-list', [
+        return view('livewire.admin.message.index', [
             'messages' => $query->paginate(15),
-        ])->layout('layouts.app.sidebar', ['title' => __('Consultation Messages')]);
+        ])->layout('layouts.app.sidebar', [
+            'title' => __('All Messages'),
+            'breadcrumbs' => [
+                ['label' => __('Dashboard'), 'href' => route('dashboard')],
+                ['label' => __('Messages'), 'href' => route('admin.messages.index')],
+                ['label' => __('All Messages'), 'href' => null],
+            ],
+        ]);
     }
 }
