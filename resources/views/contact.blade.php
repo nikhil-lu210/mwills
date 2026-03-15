@@ -67,10 +67,27 @@
                     <p class="text-gray-300 text-sm mb-8 leading-relaxed max-w-sm">
                         Skip the form and schedule a 30-minute Discovery Call straight into the practice calendar.
                     </p>
-                    <div class="w-full bg-white/5 border border-white/10 p-6 rounded-sm">
-                        <p class="text-slate text-xs uppercase tracking-widest font-bold mb-4">Calendly / TidyCal Embed</p>
-                        <p class="text-slate text-sm">Add your calendar embed URL in Phase 5 or link to your booking page here.</p>
-                    </div>
+                    @php $bookingUrl = \App\Models\Setting::get('booking_embed_url') ?: config('services.booking_embed_url'); @endphp
+                    @if($bookingUrl)
+                        <a
+                            href="{{ $bookingUrl }}"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-gold text-navy font-bold text-base rounded-sm hover:bg-white transition-colors duration-300 shadow-lg hover:shadow-xl"
+                        >
+                            <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            {{ __('Book a Discovery Call') }}
+                        </a>
+                        <p class="text-slate text-xs mt-4 max-w-sm mx-auto">
+                            {{ __('You’ll be taken to the booking page to pick a time that works for you.') }}
+                        </p>
+                    @else
+                        <div class="w-full bg-white/5 border border-white/10 p-6 rounded-sm text-left">
+                            <p class="text-slate text-xs uppercase tracking-widest font-bold mb-2">Calendly / TidyCal</p>
+                            <p class="text-slate text-sm mb-4">Set the booking URL in <strong>Dashboard → Settings</strong> (or <code class="text-gold bg-white/10 px-1.5 py-0.5 rounded">BOOKING_EMBED_URL</code> in .env). The “Book a Discovery Call” button will appear here.</p>
+                            <p class="text-slate text-xs">Example: <code class="text-gold/90 break-all">https://calendly.com/yourname/30min</code></p>
+                        </div>
+                    @endif
                 </div>
             </div>
         </div>

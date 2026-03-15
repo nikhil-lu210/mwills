@@ -32,6 +32,11 @@
                         {{ __('Create Post') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
+                <flux:sidebar.group class="grid">
+                    <flux:sidebar.item icon="cog-6-tooth" :href="route('admin.settings')" :current="request()->routeIs('admin.settings')" wire:navigate>
+                        {{ __('Settings') }}
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
             </flux:sidebar.nav>
 
             <flux:spacer />

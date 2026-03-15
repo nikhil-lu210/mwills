@@ -35,4 +35,14 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Booking / Calendar embed (Calendly, TidyCal, etc.)
+    |--------------------------------------------------------------------------
+    | Set BOOKING_EMBED_URL in .env to your calendar booking page URL.
+    | Example: https://calendly.com/yourname/30min or your TidyCal booking link.
+    | The contact page will show an embedded calendar; if empty, a placeholder is shown.
+    */
+    'booking_embed_url' => env('BOOKING_EMBED_URL', ''),
+
 ];

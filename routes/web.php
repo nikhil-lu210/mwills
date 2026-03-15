@@ -32,6 +32,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::livewire('dashboard/messages', App\Livewire\Admin\MessageList::class)->name('admin.messages.index');
     Route::livewire('dashboard/messages/archived', App\Livewire\Admin\MessageListArchived::class)->name('admin.messages.archived');
     Route::livewire('dashboard/messages/{message}', App\Livewire\Admin\MessageView::class)->name('admin.messages.show');
+
+    Route::livewire('dashboard/settings', App\Livewire\Admin\SiteSettings::class)->name('admin.settings');
 });
 
 require __DIR__.'/settings.php';
