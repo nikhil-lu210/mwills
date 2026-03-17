@@ -54,7 +54,7 @@
                     </div>
                     <a href="{{ route('intelligence') }}" class="text-sm font-semibold text-navy hover:text-gold transition-colors">Intelligence</a>
                     <a href="{{ route('about') }}" class="text-sm font-semibold text-navy hover:text-gold transition-colors">About</a>
-                    <a href="{{ route('contact') }}" class="ml-4 px-6 py-2.5 border border-gold text-navy font-semibold text-sm rounded-sm hover:bg-gold hover:text-white transition-all duration-300">
+                    <a href="{{ route('contact') }}" class="ml-4 px-6 py-2.5 bg-gold text-navy font-semibold text-sm rounded-sm hover:bg-gold/90 hover:text-navy transition-all duration-300">
                         Book a Consultation
                     </a>
                 </div>
