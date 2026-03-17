@@ -14,6 +14,7 @@ class ConsultationMessage extends Model
         'message',
         'status',
         'notes',
+        'first_reply',
     ];
 
     public const STATUS_NEW = 'new';
@@ -28,4 +29,10 @@ class ConsultationMessage extends Model
         'Content & Communications',
         'Not sure yet',
     ];
+
+    public function adminNotes()
+    {
+        return $this->hasMany(ConsultationMessageNote::class)
+            ->latest();
+    }
 }
