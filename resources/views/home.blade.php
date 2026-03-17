@@ -25,7 +25,11 @@
                     <a href="{{ route('contact') }}" class="inline-flex items-center justify-center bg-gold text-navy font-semibold px-8 py-3.5 rounded-sm hover:bg-white transition-colors duration-300 text-sm sm:text-base">
                         Book a Consultation
                     </a>
-                    <a href="#" class="inline-flex items-center justify-center border border-white/30 text-white font-semibold px-8 py-3.5 rounded-sm hover:bg-white/10 transition-colors duration-300 text-sm sm:text-base">
+                    <a
+                        href="{{ asset('assets/docs/Africa_Market_Entry_Playbook_2025.pdf') }}"
+                        download
+                        class="inline-flex items-center justify-center border border-white/30 text-white font-semibold px-8 py-3.5 rounded-sm hover:bg-white/10 transition-colors duration-300 text-sm sm:text-base"
+                    >
                         Download Africa Playbook
                     </a>
                 </div>
