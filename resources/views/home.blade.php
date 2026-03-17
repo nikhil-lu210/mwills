@@ -7,20 +7,25 @@
             </svg>
         </div>
         <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="max-w-3xl">
-                <span class="text-gold tracking-widest text-xs font-bold uppercase mb-6 block">Intelligence. Strategy. Growth.</span>
-                <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-[56px] leading-[1.15] mb-8">
-                    Your next market. Your next hire. Your next client. Your next story.<br/>
-                    <span class="text-gold">We build the intelligence and infrastructure that gets you there.</span>
+            <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
+                <span class="text-gold tracking-[0.2em] text-xs sm:text-sm font-semibold uppercase mb-5 block">
+                    Intelligence. Strategy. Growth.
+                </span>
+                <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight sm:leading-[1.1] mb-6">
+                    Your next market. Your next hire. Your next client. Your next story.
+                    <span class="mt-5 block text-gold text-[1.9rem] sm:text-[2.1rem] lg:text-[2.3rem] leading-snug font-semibold">
+                        We build the intelligence and infrastructure that gets you there.
+                    </span>
                 </h1>
-                <p class="text-lg text-gray-300 mb-10 leading-relaxed font-body max-w-2xl">
-                    McWills Consulting is a business development consultancy specialising in market intelligence, growth strategy, talent solutions, and executive communications — with deep expertise in African market entry.
+                <p class="text-base sm:text-lg text-gray-200 mb-10 leading-relaxed font-body max-w-3xl mx-auto">
+                    McWills Consulting is a business development consultancy specialising in market intelligence, growth strategy,
+                    talent solutions, and executive communications with deep expertise in African market entry.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="{{ route('contact') }}" class="inline-block text-center bg-gold text-navy font-semibold px-8 py-4 rounded-sm hover:bg-white transition-colors duration-300">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="{{ route('contact') }}" class="inline-flex items-center justify-center bg-gold text-navy font-semibold px-8 py-3.5 rounded-sm hover:bg-white transition-colors duration-300 text-sm sm:text-base">
                         Book a Consultation
                     </a>
-                    <a href="#" class="inline-block text-center border border-white/30 text-white font-semibold px-8 py-4 rounded-sm hover:bg-white/10 transition-colors duration-300">
+                    <a href="#" class="inline-flex items-center justify-center border border-white/30 text-white font-semibold px-8 py-3.5 rounded-sm hover:bg-white/10 transition-colors duration-300 text-sm sm:text-base">
                         Download Africa Playbook
                     </a>
                 </div>
