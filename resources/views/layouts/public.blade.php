@@ -32,7 +32,7 @@
                         <img src="{{ asset('assets/images/logo.png') }}" alt="McWills Consulting" class="h-8 w-auto max-h-10 max-w-[7rem] object-contain sm:h-9 sm:max-h-12 sm:max-w-[8rem]" width="140" height="40" />
                     @endif
                     <span class="font-display font-bold text-xl tracking-tight text-navy sm:text-2xl truncate">
-                        MCWILLS <span class="text-gold">|</span> CONSULTING
+                        McWills <span class="text-gold">|</span> CONSULTING
                     </span>
                 </a>
 

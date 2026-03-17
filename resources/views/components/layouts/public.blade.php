@@ -25,14 +25,14 @@
 
     {{-- Sticky Navigation --}}
     <nav class="fixed w-full z-50 bg-white border-b border-gray-100 shadow-sm top-0 transition-all duration-300">
-        <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="w-full px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <a href="{{ route('home') }}" class="flex flex-shrink-0 items-center gap-2 min-w-0">
                     @if(\File::exists(public_path('assets/images/logo.png')))
                         <img src="{{ asset('assets/images/logo.png') }}" alt="McWills Consulting" class="h-8 w-auto max-h-10 max-w-[7rem] object-contain sm:h-9 sm:max-h-12 sm:max-w-[8rem]" width="140" height="40" />
                     @endif
                     <span class="font-display font-bold text-xl tracking-tight text-navy sm:text-2xl truncate">
-                        MCWILLS <span class="text-gold">|</span> CONSULTING
+                        McWills <span class="text-gold">|</span> CONSULTING
                     </span>
                 </a>
 
@@ -66,7 +66,7 @@
                         </svg>
                     </summary>
                     <div class="absolute left-0 right-0 top-20 bg-white border-t border-gray-100 shadow-lg">
-                        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 max-w-content mx-auto">
+                        <div class="px-4 pt-2 pb-3 space-y-1 sm:px-6 lg:px-8">
                             <a href="{{ route('home') }}" class="block px-3 py-2 text-base font-semibold text-navy hover:text-gold">Home</a>
                             <div class="px-3 py-2 text-base font-semibold text-navy">
                                 What We Do
