@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Mail\NewInquiryNotification;
 use App\Models\ConsultationMessage;
-use App\Models\User;
+use App\Models\Setting;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -48,9 +48,9 @@ class ContactController extends Controller
         app()->terminating(function () use ($inquiryId): void {
             $inquiry = ConsultationMessage::find($inquiryId);
             if ($inquiry) {
-                $adminEmail = User::query()->first()?->email ?? config('mail.from.address');
-                if ($adminEmail) {
-                    Mail::to($adminEmail)->send(new NewInquiryNotification($inquiry));
+                $recipient = Setting::get('enquiry_recipient_email', config('site.enquiry_recipient_email', config('mail.from.address')));
+                if ($recipient) {
+                    Mail::to($recipient)->send(new NewInquiryNotification($inquiry));
                 }
             }
         });
