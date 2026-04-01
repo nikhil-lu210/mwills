@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="McWills Consulting is a business development consultancy specialising in market intelligence, growth strategy, talent solutions, and executive communications.">
-    <title>{{ $title ?? 'McWills Consulting' }} | Intelligence. Strategy. Growth.</title>
+    <meta name="description" content="@yield('meta_description', 'McWills Consulting is a business development consultancy specialising in market intelligence, growth strategy, talent solutions, and executive communications.')">
+    <title>@yield('title', $title ?? 'McWills Consulting | Intelligence. Strategy. Growth.')</title>
+    
+    @hasSection('seo')
+        @yield('seo')
+    @endif
 
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" sizes="any">
     <link rel="icon" href="{{ asset('assets/images/logo.png') }}" type="image/png">
@@ -32,7 +36,7 @@
                         <img src="{{ asset('assets/images/logo.png') }}" alt="McWills Consulting" class="h-8 w-auto max-h-10 max-w-[7rem] object-contain sm:h-9 sm:max-h-12 sm:max-w-[8rem]" width="140" height="40" />
                     @endif
                     <span class="font-display font-bold text-xl tracking-tight text-navy sm:text-2xl truncate">
-                        McWills <span class="text-gold">|</span> CONSULTING
+                        McWILLS CONSULTING
                     </span>
                 </a>
 
@@ -97,7 +101,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div class="col-span-1 md:col-span-2">
                     <span class="font-display font-bold text-2xl tracking-tight text-white mb-4 block">
-                        MCWILLS <span class="text-gold">|</span> CONSULTING
+                        McWILLS CONSULTING
                     </span>
                     <p class="text-slate text-sm max-w-sm">
                         Intelligence. Strategy. Growth. Where preparation meets execution.
@@ -130,6 +134,33 @@
             </div>
         </div>
     </footer>
+
+    {{-- Cookie Banner --}}
+    <div id="cookie-banner" class="fixed bottom-0 inset-x-0 pb-2 sm:pb-5 z-50 hidden">
+        <div class="max-w-content mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="p-3 sm:p-4 rounded-sm bg-navy shadow-lg flex items-center justify-between flex-wrap text-white text-sm border-t-2 border-gold">
+                <div class="w-0 flex-1 flex items-center">
+                    <p class="ml-3 font-medium text-white max-w-2xl">
+                        <span>We use cookies to improve your experience. By continuing to use this site, you consent to our use of cookies.</span>
+                    </p>
+                </div>
+                <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
+                    <button id="accept-cookies" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-sm shadow-sm text-sm font-medium bg-gold text-navy hover:bg-white transition-colors">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!localStorage.getItem('cookieConsent')) {
+                document.getElementById('cookie-banner').classList.remove('hidden');
+            }
+            document.getElementById('accept-cookies')?.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'true');
+                document.getElementById('cookie-banner').classList.add('hidden');
+            });
+        });
+    </script>
 
     @stack('scripts')
 </body>

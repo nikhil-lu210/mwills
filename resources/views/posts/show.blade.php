@@ -1,4 +1,43 @@
 <x-layouts.public :title="$post->title">
+    @section('seo')
+        <!-- SEO -->
+        <meta name="description" content="{{ $post->excerpt ?? \Str::limit(strip_tags($post->body), 150) }}">
+        <meta name="keywords" content="{{ $post->category ?? 'Business, Strategy, Africa' }}">
+        <link rel="canonical" href="{{ route('posts.show', $post->slug) }}">
+
+        <!-- Open Graph -->
+        <meta property="og:type" content="article">
+        <meta property="og:url" content="{{ route('posts.show', $post->slug) }}">
+        <meta property="og:title" content="{{ $post->title }} | McWills Consulting">
+        <meta property="og:description" content="{{ $post->excerpt ?? \Str::limit(strip_tags($post->body), 150) }}">
+        <meta property="og:image" content="{{ asset('assets/images/logo.png') }}">
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="author" content="Manuel Wills, McWills Consulting">
+
+        <!-- Article Schema -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Article",
+            "headline": "{{ $post->title }}",
+            "description": "{{ $post->excerpt ?? \Str::limit(strip_tags($post->body), 150) }}",
+            "author": {
+                "@type": "Person",
+                "name": "Manuel Wills"
+            },
+            "publisher": {
+                "@type": "Organization",
+                "name": "McWills Consulting",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "{{ asset('assets/images/logo.png') }}"
+                }
+            },
+            "datePublished": "{{ $post->published_at ? $post->published_at->toIso8601String() : now()->toIso8601String() }}"
+        }
+        </script>
+    @endsection
+
     <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {{-- Back link --}}
         <a href="{{ route('intelligence') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-slate hover:text-gold transition-colors mb-8">

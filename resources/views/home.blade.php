@@ -11,8 +11,10 @@
                 <span class="text-gold tracking-[0.2em] text-xs sm:text-sm font-semibold uppercase mb-5 block">
                     Intelligence. Strategy. Growth.
                 </span>
-                <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight sm:leading-[1.1] mb-6">
-                    Your next market. Your next hire. Your next client. Your next story.
+                <h1 class="font-display font-bold text-4xl sm:text-5xl lg:text-6xl leading-tight sm:leading-[1.1] mb-6 text-center">
+                    <span class="block">Your next market</span>
+                    <span class="block">Your next hire.</span>
+                    <span class="block">Your next story</span>
                     <span class="mt-5 block text-gold text-[1.9rem] sm:text-[2.1rem] lg:text-[2.3rem] leading-snug font-semibold">
                         We build the intelligence and infrastructure that gets you there.
                     </span>
@@ -21,51 +23,87 @@
                     McWills Consulting is a business development consultancy specialising in market intelligence, growth strategy,
                     talent solutions, and executive communications with deep expertise in African market entry.
                 </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="{{ route('contact') }}" class="inline-flex items-center justify-center bg-gold text-navy font-semibold px-8 py-3.5 rounded-sm hover:bg-white transition-colors duration-300 text-sm sm:text-base">
-                        Book a Consultation
-                    </a>
-                    <a
-                        href="{{ asset('assets/docs/Africa_Market_Entry_Playbook_2025.pdf') }}"
-                        download
-                        class="inline-flex items-center justify-center border border-white/30 text-white font-semibold px-8 py-3.5 rounded-sm hover:bg-white/10 transition-colors duration-300 text-sm sm:text-base"
-                    >
-                        Download Africa Playbook
-                    </a>
+                <div class="flex flex-col items-center gap-4">
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="{{ route('contact') }}" class="inline-flex items-center justify-center bg-gold text-navy font-semibold px-8 py-3.5 rounded-sm hover:bg-white transition-colors duration-300 text-sm sm:text-base">
+                            Book a Consultation
+                        </a>
+                        <a
+                            href="{{ asset('assets/docs/Africa_Market_Entry_Playbook_2025.pdf') }}"
+                            download
+                            class="inline-flex items-center justify-center border border-white/30 text-white font-semibold px-8 py-3.5 rounded-sm hover:bg-white/10 transition-colors duration-300 text-sm sm:text-base"
+                        >
+                            Download Africa Playbook
+                        </a>
+                    </div>
+                    <span class="text-sm font-medium text-slate">or email <a href="mailto:contact@mcwillsconsulting.com" class="text-white hover:text-gold transition-colors font-semibold">contact@mcwillsconsulting.com</a></span>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- Credibility Strip --}}
     <section class="bg-white border-b border-gray-200">
         <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-gray-100 py-10">
                 <div class="px-6 text-center">
-                    <div class="text-3xl font-display font-bold text-navy mb-2">3,000+</div>
-                    <div class="text-xs text-slate uppercase tracking-wide">Avg post impressions<br>Market intelligence</div>
+                    <div class="text-4xl sm:text-5xl font-display font-bold text-navy mb-3"><span class="counter" data-target="3000">0</span>+</div>
+                    <div class="text-xs text-slate uppercase tracking-wider font-semibold">Avg post impressions<br>Market intelligence</div>
                 </div>
                 <div class="px-6 text-center">
-                    <div class="text-3xl font-display font-bold text-navy mb-2">54</div>
-                    <div class="text-xs text-slate uppercase tracking-wide">African markets.<br>We know the right ones.</div>
+                    <div class="text-4xl sm:text-5xl font-display font-bold text-navy mb-3"><span class="counter" data-target="54">0</span></div>
+                    <div class="text-xs text-slate uppercase tracking-wider font-semibold">African markets.<br>We know the right ones.</div>
                 </div>
                 <div class="px-6 text-center">
-                    <div class="text-3xl font-display font-bold text-navy mb-2">4</div>
-                    <div class="text-xs text-slate uppercase tracking-wide">Practice disciplines.<br>One partner.</div>
+                    <div class="text-4xl sm:text-5xl font-display font-bold text-navy mb-3"><span class="counter" data-target="4">0</span></div>
+                    <div class="text-xs text-slate uppercase tracking-wider font-semibold">Practice disciplines.<br>One partner.</div>
                 </div>
                 <div class="px-6 text-center">
-                    <div class="text-3xl font-display font-bold text-navy mb-2">360°</div>
-                    <div class="text-xs text-slate uppercase tracking-wide">Growth infrastructure<br>End-to-end execution</div>
+                    <div class="text-4xl sm:text-5xl font-display font-bold text-navy mb-3"><span class="counter" data-target="360">0</span>°</div>
+                    <div class="text-xs text-slate uppercase tracking-wider font-semibold">Growth infrastructure<br>End-to-end execution</div>
                 </div>
             </div>
         </div>
     </section>
+
+    @push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const counters = document.querySelectorAll('.counter');
+            const speed = 100;
+
+            const animateCounters = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const updateCount = () => {
+                            const target = +counter.getAttribute('data-target');
+                            const count = +counter.innerText;
+                            const inc = target / speed;
+
+                            if (count < target) {
+                                counter.innerText = Math.ceil(count + inc);
+                                setTimeout(updateCount, 15);
+                            } else {
+                                counter.innerText = target;
+                            }
+                        };
+                        updateCount();
+                        observer.unobserve(counter);
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(animateCounters, { threshold: 0.5 });
+            counters.forEach(counter => observer.observe(counter));
+        });
+    </script>
+    @endpush
 
     {{-- The Problem --}}
     <section class="bg-navy py-24 text-center">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="font-display font-bold text-3xl md:text-4xl text-white leading-tight">
-                Most companies know exactly what they need — a new market, a better pipeline, the right hire, the words that convert. <br/><br/>
+                Most companies know exactly what they need, a new market, a better pipeline, the right hire, the words that convert. <br/><br/>
                 <span class="text-gold">What they're missing is the expertise to execute it without the expensive lessons.</span>
             </h2>
         </div>
@@ -144,10 +182,10 @@
                     <span class="text-slate text-2xl md:text-3xl">Every headline called it a warning. We call it a vacancy.</span>
                 </h2>
                 <p class="text-lg text-gray-300 font-body mb-8 leading-relaxed">
-                    Nigeria still has 220+ million people. The companies left because of model failure, not market failure. For the business that goes in prepared — that's not a risk. That's a runway.
+                    Nigeria still has 220+ million people. The companies left because of model failure, not market failure. For the business that goes in prepared, that's not a risk. That's a runway.
                 </p>
                 <p class="text-gold font-semibold uppercase tracking-wider text-sm">
-                    This is the intelligence depth we bring to every engagement — across every service line.
+                    This is the intelligence depth we bring to every engagement, across every service line.
                 </p>
             </div>
         </div>
@@ -194,11 +232,14 @@
         <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="font-display font-bold text-4xl text-gold mb-6">Ready to move with intelligence?</h2>
             <p class="text-white text-lg font-body mb-10 leading-relaxed">
-                Whether you're entering a new market, building a pipeline, making a key hire, or building the narrative that positions your business — let's have a conversation.
+                Whether you're entering a new market, building a pipeline, making a key hire, or building the narrative that positions your business; let's have a conversation.
             </p>
-            <a href="{{ route('contact') }}" class="inline-block bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
-                Book a Consultation
-            </a>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="{{ route('contact') }}" class="inline-block bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
+                    Book a Consultation
+                </a>
+                <span class="text-sm font-medium text-slate">or email <a href="mailto:contact@mcwillsconsulting.com" class="text-white hover:text-gold transition-colors font-semibold">contact@mcwillsconsulting.com</a></span>
+            </div>
         </div>
     </section>
 </x-layouts.public>

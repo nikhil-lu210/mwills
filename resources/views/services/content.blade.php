@@ -14,10 +14,11 @@
         </div>
     </section>
 
-    <section class="bg-navy py-16 border-t border-white/10 text-center">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="font-display font-bold text-2xl md:text-3xl text-white">
-                Most leaders have deep expertise but lack the time or the exact words to project it. We solve the translation problem.
+    <section class="bg-navy py-16 border-t border-white/10 text-right">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end">
+            <h2 class="font-display font-bold text-2xl md:text-3xl text-white max-w-2xl">
+                <span class="block mb-2">Most leaders have deep expertise but lack the time or the exact words to project it.</span>
+                <span class="block text-gold">We solve the translation problem.</span>
             </h2>
         </div>
     </section>
@@ -32,7 +33,7 @@
                 </div>
                 <div class="bg-white p-8 service-card">
                     <h3 class="font-bold text-xl text-navy mb-3">LinkedIn Content Strategy</h3>
-                    <p class="text-slate text-sm mb-6">Content planning, creation, and growth strategy for executives. (Our own content averages 3,000+ impressions per post—we eat our own cooking).</p>
+                    <p class="text-slate text-sm mb-6">Content planning, creation, and growth strategy for executives. (Our own content averages 3,000+ impressions per post, we eat our own cooking).</p>
                 </div>
                 <div class="bg-white p-8 service-card">
                     <h3 class="font-bold text-xl text-navy mb-3">Executive Communications</h3>
@@ -49,9 +50,12 @@
     <section class="bg-navy py-20 text-center">
         <div class="max-w-3xl mx-auto px-4">
             <h2 class="font-display font-bold text-3xl text-gold mb-6">Own your narrative.</h2>
-            <a href="{{ route('contact') }}" class="inline-block bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
-                Discuss Your Content Strategy
-            </a>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="{{ route('contact') }}" class="inline-block bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
+                    Discuss Your Content Strategy
+                </a>
+                <span class="text-sm font-medium text-slate">or email <a href="mailto:contact@mcwillsconsulting.com" class="text-white hover:text-gold transition-colors font-semibold">contact@mcwillsconsulting.com</a></span>
+            </div>
         </div>
     </section>
 </x-layouts.public>

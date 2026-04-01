@@ -6,7 +6,7 @@
                 Intelligence before a single euro is spent.
             </h1>
             <p class="text-lg text-gray-300 mb-10 max-w-2xl font-body">
-                On-ground validated market entry strategy and competitive intelligence for companies moving into new markets — with a flagship focus on Africa.
+                On-ground validated market entry strategy and competitive intelligence for companies moving into new markets, with a flagship focus on Africa.
             </p>
             <a href="{{ route('contact') }}" class="inline-block bg-gold text-navy font-semibold px-8 py-3.5 rounded-sm hover:bg-white transition-colors duration-300">
                 Book a Consultation
@@ -75,6 +75,14 @@
                 <p class="text-slate font-body leading-relaxed max-w-3xl">
                     In 2001, global telecom analysts warned against entering Nigeria. MTN entered anyway. Today, MTN Nigeria boasts over 77 million subscribers and accounts for roughly one-third of the entire group's revenue. The market rewards those who enter narrow, prepare deeply, and scale with evidence.
                 </p>
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <p class="text-sm font-semibold text-navy mb-3">Read more here:</p>
+                    <ul class="text-sm text-slate space-y-2">
+                        <li>1. <a href="https://thisdaylive.com/index.php/2021/08/13/zero-to-70-million-the-story-of-mtn-nigeria" target="_blank" rel="noopener noreferrer" class="text-navy hover:text-gold transition-colors underline">Zero to 70 Million: The Story of MTN Nigeria</a></li>
+                        <li>2. <a href="https://researchgate.net/publication/344071702" target="_blank" rel="noopener noreferrer" class="text-navy hover:text-gold transition-colors underline">MTN Nigeria market entry strategy</a></li>
+                        <li>3. <a href="https://mtn.ng/about/our-story" target="_blank" rel="noopener noreferrer" class="text-navy hover:text-gold transition-colors underline">MTN Nigeria our story</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
@@ -135,9 +143,12 @@
     <section class="bg-navy py-20 text-center">
         <div class="max-w-3xl mx-auto px-4">
             <h2 class="font-display font-bold text-3xl text-gold mb-6">Stop guessing. Start executing.</h2>
-            <a href="{{ route('contact') }}" class="inline-block bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
-                Discuss Your Market Strategy
-            </a>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="{{ route('contact') }}" class="inline-block bg-gold text-navy font-bold px-10 py-4 rounded-sm hover:bg-white transition-colors duration-300">
+                    Discuss Your Market Strategy
+                </a>
+                <span class="text-sm font-medium text-slate">or email <a href="mailto:contact@mcwillsconsulting.com" class="text-white hover:text-gold transition-colors font-semibold">contact@mcwillsconsulting.com</a></span>
+            </div>
         </div>
     </section>
 </x-layouts.public>
