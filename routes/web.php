@@ -6,7 +6,7 @@ use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 // Public site
-Route::view('/', 'home')->name('home');
+Route::get('/', [PostController::class, 'home'])->name('home');
 Route::view('/services/strategy', 'services.strategy')->name('services.strategy');
 Route::view('/services/bd', 'services.bd')->name('services.bd');
 Route::view('/services/talent', 'services.talent')->name('services.talent');

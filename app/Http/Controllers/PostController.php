@@ -8,6 +8,21 @@ use Illuminate\View\View;
 class PostController extends Controller
 {
     /**
+     * Home page with latest Intelligence Desk previews.
+     */
+    public function home(): View
+    {
+        $latestPosts = Post::query()
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now())
+            ->latest('published_at')
+            ->limit(3)
+            ->get();
+
+        return view('home', ['latestPosts' => $latestPosts]);
+    }
+
+    /**
      * List all published blog posts (Intelligence / blog index).
      */
     public function index(): View

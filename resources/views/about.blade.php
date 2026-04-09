@@ -2,7 +2,9 @@
     <section class="bg-navy pt-32 pb-24 text-white text-center">
         <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
             <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-[56px] leading-[1.15] mb-6 max-w-4xl mx-auto">
-                Intelligence before assumption. Execution over advice.
+                Intelligence before assumption.
+                <br>
+                <span class="text-gold">Execution over advice.</span>
             </h1>
         </div>
     </section>

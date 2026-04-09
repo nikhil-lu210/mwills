@@ -204,26 +204,30 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <a href="{{ route('intelligence') }}" class="group block">
-                    <span class="text-xs font-bold text-gold uppercase tracking-wider mb-3 block">The Vacancy</span>
-                    <h3 class="font-display font-bold text-xl text-navy mb-3 group-hover:text-gold transition-colors">The Model, Not the Market, Determines Outcomes in West Africa</h3>
-                    <p class="text-slate text-sm mb-4 line-clamp-2">Why European standard operating procedures consistently fail in markets that require adaptive commercial architecture.</p>
-                    <span class="text-xs text-slate">5 min read</span>
-                </a>
-                <a href="{{ route('intelligence') }}" class="group block">
-                    <span class="text-xs font-bold text-gold uppercase tracking-wider mb-3 block">BD & Growth</span>
-                    <h3 class="font-display font-bold text-xl text-navy mb-3 group-hover:text-gold transition-colors">Enter Narrow. Scale with Evidence.</h3>
-                    <p class="text-slate text-sm mb-4 line-clamp-2">The fatal flaw in multi-country simultaneous expansion and why a single-node entry strategy preserves capital.</p>
-                    <span class="text-xs text-slate">4 min read</span>
-                </a>
-                <a href="{{ route('intelligence') }}" class="group block">
-                    <span class="text-xs font-bold text-gold uppercase tracking-wider mb-3 block">Talent Intelligence</span>
-                    <h3 class="font-display font-bold text-xl text-navy mb-3 group-hover:text-gold transition-colors">Why In-Market Leadership Hires Fail</h3>
-                    <p class="text-slate text-sm mb-4 line-clamp-2">The discrepancy between expat expectations and local market realities, and how to source leaders who bridge the gap.</p>
-                    <span class="text-xs text-slate">6 min read</span>
-                </a>
-            </div>
+            @if($latestPosts->isEmpty())
+                <div class="text-center py-8">
+                    <p class="text-slate font-body">{{ __('New insights coming soon. Browse the archive when articles are published.') }}</p>
+                    <a href="{{ route('intelligence') }}" class="inline-flex items-center gap-2 mt-4 text-navy font-semibold text-sm hover:text-gold transition-colors">
+                        {{ __('The Intelligence Desk') }}
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    </a>
+                </div>
+            @else
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    @foreach($latestPosts as $post)
+                        <a href="{{ route('posts.show', $post->slug) }}" class="group block">
+                            @if($post->category)
+                                <span class="text-xs font-bold text-gold uppercase tracking-wider mb-3 block">{{ $post->category }}</span>
+                            @endif
+                            <h3 class="font-display font-bold text-xl text-navy mb-3 group-hover:text-gold transition-colors">{{ $post->title }}</h3>
+                            <p class="text-slate text-sm mb-4 line-clamp-2">{{ $post->excerpt ?: \Str::limit(strip_tags($post->body ?? ''), 160) }}</p>
+                            @if($post->read_time_minutes)
+                                <span class="text-xs text-slate">{{ $post->read_time_minutes }} {{ __('min read') }}</span>
+                            @endif
+                        </a>
+                    @endforeach
+                </div>
+            @endif
         </div>
     </section>
 
