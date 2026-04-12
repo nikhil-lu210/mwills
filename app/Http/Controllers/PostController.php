@@ -49,6 +49,8 @@ class PostController extends Controller
 
         $suggestedPosts = $this->getSuggestedPosts($post, 3);
 
+
+
         return view('posts.show', [
             'post' => $post,
             'suggestedPosts' => $suggestedPosts,

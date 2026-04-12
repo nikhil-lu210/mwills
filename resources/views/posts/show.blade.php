@@ -1,42 +1,15 @@
 <x-layouts.public :title="$post->title">
-    @section('seo')
-        <!-- SEO -->
+    <x-slot:seo>
         <meta name="description" content="{{ $post->excerpt ?? \Str::limit(strip_tags($post->body), 150) }}">
         <meta name="keywords" content="{{ $post->category ?? 'Business, Strategy, Africa' }}">
         <link rel="canonical" href="{{ route('posts.show', $post->slug) }}">
-
-        <!-- Open Graph -->
         <meta property="og:type" content="article">
         <meta property="og:url" content="{{ route('posts.show', $post->slug) }}">
         <meta property="og:title" content="{{ $post->title }} | McWills Consulting">
         <meta property="og:description" content="{{ $post->excerpt ?? \Str::limit(strip_tags($post->body), 150) }}">
         <meta property="og:image" content="{{ asset('assets/images/logo.png') }}">
         <meta name="twitter:card" content="summary_large_image">
-        <meta name="author" content="Manuel Wills, McWills Consulting">
-
-        <!-- Article Schema -->
-        <script type="application/ld+json">
-        {
-            "@context": "https://schema.org",
-            "@type": "Article",
-            "headline": "{{ $post->title }}",
-            "description": "{{ $post->excerpt ?? \Str::limit(strip_tags($post->body), 150) }}",
-            "author": {
-                "@type": "Person",
-                "name": "Manuel Wills"
-            },
-            "publisher": {
-                "@type": "Organization",
-                "name": "McWills Consulting",
-                "logo": {
-                    "@type": "ImageObject",
-                    "url": "{{ asset('assets/images/logo.png') }}"
-                }
-            },
-            "datePublished": "{{ $post->published_at ? $post->published_at->toIso8601String() : now()->toIso8601String() }}"
-        }
-        </script>
-    @endsection
+    </x-slot>
 
     <article class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
         {{-- Back link --}}
@@ -66,7 +39,7 @@
             </p>
         @endif
 
-        {{-- Body: prose for rich HTML from Quill --}}
+        {{-- Body --}}
         <div class="post-body">
             {!! $post->body !!}
         </div>
@@ -78,18 +51,11 @@
             </a>
         </footer>
 
-        @if($suggestedPosts && $suggestedPosts->isNotEmpty())
-            @php $suggestedCount = $suggestedPosts->count(); @endphp
-            <aside class="mt-16 pt-12 border-t border-gray-200" aria-label="{{ __('Suggested reads') }}">
-                <h2 class="font-display font-bold text-2xl text-navy mb-1">{{ __('Suggested reads') }}</h2>
-                <p class="text-sm text-slate mb-8">
-                    @if($post->category)
-                        {{ __('More from :category', ['category' => $post->category]) }}
-                    @else
-                        {{ __('More from The Intelligence Desk') }}
-                    @endif
-                </p>
-                <ul class="grid gap-6 {{ $suggestedCount === 1 ? 'grid-cols-1 max-w-md' : ($suggestedCount === 2 ? 'grid-cols-1 sm:grid-cols-2' : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3') }} {{ $suggestedCount === 1 ? 'mx-auto' : '' }}">
+        {{-- Suggested Posts Section --}}
+        @if(isset($suggestedPosts) && $suggestedPosts->count() > 0)
+            <aside class="mt-16 pt-12 border-t border-gray-200">
+                <h2 class="font-display font-bold text-2xl text-navy mb-8">{{ __('Suggested reads') }}</h2>
+                <ul class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach($suggestedPosts as $suggested)
                         <li>
                             <a href="{{ route('posts.show', $suggested->slug) }}" class="group block h-full">
@@ -100,11 +66,7 @@
                                     <h3 class="font-display font-bold text-lg text-navy mb-2 line-clamp-2 group-hover:text-gold transition-colors">
                                         {{ $suggested->title }}
                                     </h3>
-                                    <p class="text-sm text-slate line-clamp-2 flex-1">{{ $suggested->excerpt ?: \Str::limit(strip_tags($suggested->body), 80) }}</p>
-                                    <span class="inline-flex items-center gap-1.5 text-sm font-semibold text-gold mt-4 group-hover:text-navy transition-colors">
-                                        {{ __('Read more') }}
-                                        <svg class="w-4 h-4 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                                    </span>
+                                    <p class="text-sm text-slate line-clamp-2">{{ $suggested->excerpt ?: \Str::limit(strip_tags($suggested->body), 80) }}</p>
                                 </article>
                             </a>
                         </li>

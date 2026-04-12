@@ -8,6 +8,11 @@
         content="McWills Consulting is a business development consultancy specialising in market intelligence, growth strategy, talent solutions, and executive communications.">
     <title>{{ $title ?? 'McWills Consulting' }} | Intelligence. Strategy. Growth.</title>
 
+    @if(View::hasSection('seo'))
+        @yield('seo')
+    @endif
+    {{ $seo ?? '' }}
+
     <link rel="icon" href="{{ asset('assets/images/favicon.ico') }}" sizes="any">
     <link rel="icon" href="{{ asset('assets/images/logo.png') }}" type="image/png">
 
