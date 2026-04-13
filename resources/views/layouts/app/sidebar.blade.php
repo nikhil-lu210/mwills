@@ -32,6 +32,14 @@
                         {{ __('Create Post') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
+                <flux:sidebar.group :heading="__('Users')" expandable :expanded="request()->routeIs('admin.users.*')" icon="users" class="grid">
+                    <flux:sidebar.item :href="route('admin.users.index')" :current="request()->routeIs('admin.users.index')" wire:navigate>
+                        {{ __('All Users') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('admin.users.create')" :current="request()->routeIs('admin.users.create')" wire:navigate>
+                        {{ __('Create New User') }}
+                    </flux:sidebar.item>
+                </flux:sidebar.group>
                 <flux:sidebar.group class="grid">
                     <flux:sidebar.item icon="cog-6-tooth" :href="route('admin.settings')" :current="request()->routeIs('admin.settings')" wire:navigate>
                         {{ __('Settings') }}

@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Owner user (protected account)
+    |--------------------------------------------------------------------------
+    |
+    | This user id cannot be deleted or deactivated from the admin panel.
+    | Override with OWNER_USER_ID in .env if your primary admin is not id 1.
+    |
+    */
+
+    'owner_user_id' => (int) env('OWNER_USER_ID', 1),
+
 ];

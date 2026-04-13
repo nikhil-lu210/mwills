@@ -24,6 +24,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'is_active',
     ];
 
     /**
@@ -48,7 +49,16 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
         ];
+    }
+
+    /**
+     * The primary admin account (first / seed user). Cannot be deleted or deactivated via admin UI.
+     */
+    public function isOwner(): bool
+    {
+        return $this->getKey() === config('app.owner_user_id', 1);
     }
 
     /**

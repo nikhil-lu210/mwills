@@ -48,6 +48,19 @@ class AuthenticationTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_inactive_users_cannot_authenticate(): void
+    {
+        $user = User::factory()->create(['is_active' => false]);
+
+        $response = $this->post(route('login.store'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $response->assertSessionHasErrors();
+        $this->assertGuest();
+    }
+
     public function test_users_with_two_factor_enabled_are_redirected_to_two_factor_challenge(): void
     {
         $this->skipUnlessFortifyFeature(Features::twoFactorAuthentication());

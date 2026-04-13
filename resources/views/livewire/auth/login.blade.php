@@ -5,6 +5,12 @@
         <!-- Session Status -->
         <x-auth-session-status class="text-center" :status="session('status')" />
 
+        @if ($errors->any())
+            <flux:callout variant="danger" icon="exclamation-triangle">
+                {{ $errors->first() }}
+            </flux:callout>
+        @endif
+
         <form method="POST" action="{{ route('login.store') }}" class="flex flex-col gap-6">
             @csrf
 
