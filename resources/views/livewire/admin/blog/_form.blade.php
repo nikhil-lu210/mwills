@@ -54,7 +54,7 @@
             </div>
             <flux:error name="body" />
             <flux:text class="mt-2 block text-xs text-zinc-500 dark:text-zinc-400">
-                {{ __('Use the toolbar for headings, bold, lists, links, text color, images and YouTube videos. Pasted or dropped images are uploaded as files so the post saves reliably.') }}
+                {{ __('Use the toolbar for headings, bold, lists, links, text color, images and YouTube videos. Pasting a single URL adds a site favicon next to the link. Pasted or dropped images are uploaded as files so the post saves reliably.') }}
             </flux:text>
         </flux:field>
 

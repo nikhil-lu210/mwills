@@ -39,9 +39,9 @@
             </p>
         @endif
 
-        {{-- Body --}}
+        {{-- Body (external links get a favicon for pasted URLs) --}}
         <div class="post-body">
-            {!! $post->body !!}
+            {!! \App\Support\PostBody::enhanceLinksWithFavicons($post->body ?? '') !!}
         </div>
 
         <footer class="mt-12 pt-8 border-t border-gray-200">

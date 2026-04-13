@@ -50,6 +50,30 @@
             input.dispatchEvent(new Event('input', { bubbles: true }));
         }
 
+        function escapeHtml(text) {
+            return String(text)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        function insertPastedUrlWithFavicon(quill, e, url) {
+            try {
+                const parsed = new URL(url);
+                const favicon = 'https://www.google.com/s2/favicons?domain=' + encodeURIComponent(parsed.hostname) + '&sz=32';
+                e.preventDefault();
+                const index = quill.getSelection(true)?.index ?? Math.max(0, quill.getLength() - 1);
+                const hrefAttr = url.replace(/"/g, '&quot;');
+                const linkHtml = '<p><a href="' + hrefAttr + '" target="_blank" rel="noopener noreferrer" class="post-link-with-favicon"><img src="' + favicon + '" width="16" height="16" alt="" class="post-link-favicon" loading="lazy"/>' + escapeHtml(url) + '</a></p>';
+                quill.clipboard.dangerouslyPasteHTML(index, linkHtml);
+                syncBodyToLivewire(quill);
+                return true;
+            } catch (err) {
+                return false;
+            }
+        }
+
         let replacingDataImages = false;
 
         async function replaceDataImagesInEditor(quill) {
@@ -159,6 +183,14 @@
             }
 
             quill.root.addEventListener('paste', async function (e) {
+                const htmlClip = e.clipboardData?.getData('text/html') || '';
+                const plain = (e.clipboardData?.getData('text/plain') || '').trim();
+                if (!htmlClip && /^https?:\/\/\S+$/i.test(plain)) {
+                    if (insertPastedUrlWithFavicon(quill, e, plain)) {
+                        return;
+                    }
+                }
+
                 const items = e.clipboardData?.items;
                 const hasHtml = items && Array.from(items).some(function (it) { return it.type === 'text/html'; });
                 if (items && uploadUrl && !hasHtml) {

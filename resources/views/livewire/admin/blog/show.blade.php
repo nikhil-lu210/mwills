@@ -53,7 +53,7 @@
     <flux:card>
         <flux:heading size="sm" class="mb-4 text-zinc-500 dark:text-zinc-400">{{ __('Content') }}</flux:heading>
         <div class="admin-post-body">
-            {!! $post->body !!}
+            {!! \App\Support\PostBody::enhanceLinksWithFavicons($post->body ?? '') !!}
         </div>
     </flux:card>
 </div>
