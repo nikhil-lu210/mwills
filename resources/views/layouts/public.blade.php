@@ -100,9 +100,16 @@
         <div class="max-w-content mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div class="col-span-1 md:col-span-2">
-                    <span class="font-display font-bold text-2xl tracking-tight text-white mb-4 block">
-                        McWILLS CONSULTING
-                    </span>
+                    <a href="{{ route('home') }}" class="inline-flex flex-shrink-0 items-center gap-2 min-w-0 mb-4 max-w-full">
+                        @if(\File::exists(public_path('assets/images/logo.png')))
+                            <img src="{{ asset('assets/images/logo.png') }}" alt="{{ __('McWills Consulting') }}"
+                                class="h-8 w-auto max-h-10 max-w-[7rem] object-contain sm:h-9 sm:max-h-12 sm:max-w-[8rem]"
+                                width="140" height="40" loading="lazy" decoding="async" />
+                        @endif
+                        <span class="font-display font-bold text-xl tracking-tight text-white sm:text-2xl truncate">
+                            McWILLS CONSULTING
+                        </span>
+                    </a>
                     <p class="text-slate text-sm max-w-sm">
                         Intelligence. Strategy. Growth. Where preparation meets execution.
                     </p>
