@@ -29,11 +29,11 @@
                             <flux:table.cell>{{ $message->company }}</flux:table.cell>
                             <flux:table.cell>{{ $message->area ?? '—' }}</flux:table.cell>
                             <flux:table.cell>
-                                <flux:badge color="zinc">{{ __('Archived') }}</flux:badge>
+                                <flux:badge color="zinc">{{ __('Closed') }}</flux:badge>
                             </flux:table.cell>
                             <flux:table.cell>{{ $message->created_at->format('M j, Y H:i') }}</flux:table.cell>
                             <flux:table.cell class="text-end">
-                                <flux:button size="sm" variant="ghost" :href="route('admin.messages.show', $message)" wire:navigate>
+                                <flux:button size="sm" variant="ghost" :href="route('admin.leads.show', $message)" wire:navigate>
                                     {{ __('View') }}
                                 </flux:button>
                             </flux:table.cell>

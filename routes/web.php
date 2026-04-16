@@ -3,17 +3,20 @@
 use App\Http\Controllers\Admin\PostImageUploadController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PostController;
+use App\Livewire\Admin\ContentAnalytics;
 use App\Livewire\Admin\Dashboard;
-use App\Livewire\Admin\MessageList;
+use App\Livewire\Admin\LeadsList;
 use App\Livewire\Admin\MessageListArchived;
 use App\Livewire\Admin\MessageView;
 use App\Livewire\Admin\PostForm;
 use App\Livewire\Admin\PostList;
 use App\Livewire\Admin\PostView;
-use App\Livewire\Admin\SiteSettings;
+use App\Livewire\Admin\SiteSettingsAnalytics;
+use App\Livewire\Admin\SiteSettingsGeneral;
 use App\Livewire\Admin\UserCreate;
 use App\Livewire\Admin\UserEdit;
 use App\Livewire\Admin\UserList;
+use App\Models\ConsultationMessage;
 use Illuminate\Support\Facades\Route;
 
 // Public site
@@ -44,11 +47,19 @@ Route::middleware(['auth', 'verified', 'active'])->group(function () {
     Route::livewire('dashboard/posts/{post}', PostView::class)->name('admin.posts.show');
     Route::livewire('dashboard/posts/{post}/edit', PostForm::class)->name('admin.posts.edit');
 
-    Route::livewire('dashboard/messages', MessageList::class)->name('admin.messages.index');
-    Route::livewire('dashboard/messages/archived', MessageListArchived::class)->name('admin.messages.archived');
-    Route::livewire('dashboard/messages/{message}', MessageView::class)->name('admin.messages.show');
+    Route::livewire('dashboard/analytics/content', ContentAnalytics::class)->name('admin.analytics.content');
 
-    Route::livewire('dashboard/settings', SiteSettings::class)->name('admin.settings');
+    Route::get('dashboard/messages', fn () => redirect()->route('admin.leads.index'))->name('admin.messages.index');
+    Route::get('dashboard/messages/archived', fn () => redirect()->route('admin.leads.archived'))->name('admin.messages.archived');
+    Route::get('dashboard/messages/{message}', fn (ConsultationMessage $message) => redirect()->route('admin.leads.show', $message));
+
+    Route::livewire('dashboard/leads/archived', MessageListArchived::class)->name('admin.leads.archived');
+    Route::livewire('dashboard/leads/{message}', MessageView::class)->name('admin.leads.show');
+    Route::livewire('dashboard/leads', LeadsList::class)->name('admin.leads.index');
+
+    Route::redirect('dashboard/settings', '/dashboard/settings/general')->name('admin.settings');
+    Route::livewire('dashboard/settings/general', SiteSettingsGeneral::class)->name('admin.settings.general');
+    Route::livewire('dashboard/settings/analytics', SiteSettingsAnalytics::class)->name('admin.settings.analytics');
 });
 
 require __DIR__.'/settings.php';

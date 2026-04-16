@@ -15,9 +15,8 @@
                 <flux:select wire:model.live="statusFilter">
                     <option value="">{{ __('All statuses') }}</option>
                     <option value="new">{{ __('New') }}</option>
-                    <option value="read">{{ __('Read') }}</option>
-                    <option value="replied">{{ __('Replied') }}</option>
-                    <option value="archived">{{ __('Archived') }}</option>
+                    <option value="contacted">{{ __('Contacted') }}</option>
+                    <option value="closed">{{ __('Closed') }}</option>
                 </flux:select>
             </flux:field>
         @endif
@@ -43,17 +42,15 @@
                             <flux:table.cell>
                                 @if($message->status === 'new')
                                     <flux:badge color="green">{{ __('New') }}</flux:badge>
-                                @elseif($message->status === 'read')
-                                    <flux:badge color="zinc">{{ __('Read') }}</flux:badge>
-                                @elseif($message->status === 'replied')
-                                    <flux:badge color="blue">{{ __('Replied') }}</flux:badge>
+                                @elseif($message->status === 'contacted')
+                                    <flux:badge color="blue">{{ __('Contacted') }}</flux:badge>
                                 @else
-                                    <flux:badge color="zinc">{{ __('Archived') }}</flux:badge>
+                                    <flux:badge color="zinc">{{ __('Closed') }}</flux:badge>
                                 @endif
                             </flux:table.cell>
                             <flux:table.cell>{{ $message->created_at->format('M j, Y H:i') }}</flux:table.cell>
                             <flux:table.cell class="text-end">
-                                <flux:button size="sm" variant="ghost" :href="route('admin.messages.show', $message)" wire:navigate>
+                                <flux:button size="sm" variant="ghost" :href="route('admin.leads.show', $message)" wire:navigate>
                                     {{ __('View') }}
                                 </flux:button>
                             </flux:table.cell>

@@ -28,11 +28,11 @@ class MessageList extends Component
         return view('livewire.admin.message.index', [
             'messages' => $query->paginate(15),
         ])->layout('layouts.app.sidebar', [
-            'title' => __('All Messages'),
+            'title' => __('All Leads'),
             'breadcrumbs' => [
                 ['label' => __('Dashboard'), 'href' => route('dashboard')],
-                ['label' => __('Messages'), 'href' => route('admin.messages.index')],
-                ['label' => __('All Messages'), 'href' => null],
+                ['label' => __('Leads'), 'href' => route('admin.leads.index')],
+                ['label' => __('All Leads'), 'href' => null],
             ],
         ]);
     }

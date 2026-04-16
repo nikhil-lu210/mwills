@@ -14,16 +14,16 @@ class MessageListArchived extends Component
     {
         return view('livewire.admin.message.archive', [
             'messages' => ConsultationMessage::query()
-                ->where('status', 'archived')
+                ->where('status', ConsultationMessage::STATUS_CLOSED)
                 ->latest()
                 ->paginate(15),
-            'pageSubheading' => __('Messages you have archived.'),
+            'pageSubheading' => __('Leads marked as closed.'),
         ])->layout('layouts.app.sidebar', [
-            'title' => __('Archived Messages'),
+            'title' => __('Closed Leads'),
             'breadcrumbs' => [
                 ['label' => __('Dashboard'), 'href' => route('dashboard')],
-                ['label' => __('Messages'), 'href' => route('admin.messages.index')],
-                ['label' => __('Archived'), 'href' => null],
+                ['label' => __('Leads'), 'href' => route('admin.leads.index')],
+                ['label' => __('Closed'), 'href' => null],
             ],
         ]);
     }

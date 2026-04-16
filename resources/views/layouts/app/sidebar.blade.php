@@ -16,12 +16,17 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
-                <flux:sidebar.group :heading="__('Messages')" expandable :expanded="request()->routeIs('admin.messages.*')" icon="chat-bubble-left-right" class="grid">
-                    <flux:sidebar.item :href="route('admin.messages.index')" :current="request()->routeIs('admin.messages.index')" wire:navigate>
-                        {{ __('All Messages') }}
+                <flux:sidebar.group :heading="__('Analytics')" expandable :expanded="request()->routeIs('admin.analytics.*')" icon="chart-bar" class="grid">
+                    <flux:sidebar.item :href="route('admin.analytics.content')" :current="request()->routeIs('admin.analytics.content')" wire:navigate>
+                        {{ __('Content') }}
                     </flux:sidebar.item>
-                    <flux:sidebar.item :href="route('admin.messages.archived')" :current="request()->routeIs('admin.messages.archived')" wire:navigate>
-                        {{ __('Archived') }}
+                </flux:sidebar.group>
+                <flux:sidebar.group :heading="__('Leads')" expandable :expanded="request()->routeIs('admin.leads.*')" icon="chat-bubble-left-right" class="grid">
+                    <flux:sidebar.item :href="route('admin.leads.index')" :current="request()->routeIs('admin.leads.index')" wire:navigate>
+                        {{ __('All Leads') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('admin.leads.archived')" :current="request()->routeIs('admin.leads.archived')" wire:navigate>
+                        {{ __('Closed') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
                 <flux:sidebar.group :heading="__('Blogs')" expandable :expanded="request()->routeIs('admin.posts.*')" icon="document-text" class="grid">
@@ -40,9 +45,12 @@
                         {{ __('Create New User') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
-                <flux:sidebar.group class="grid">
-                    <flux:sidebar.item icon="cog-6-tooth" :href="route('admin.settings')" :current="request()->routeIs('admin.settings')" wire:navigate>
-                        {{ __('Settings') }}
+                <flux:sidebar.group :heading="__('Settings')" expandable :expanded="request()->routeIs('admin.settings.*')" icon="cog-6-tooth" class="grid">
+                    <flux:sidebar.item :href="route('admin.settings.general')" :current="request()->routeIs('admin.settings.general')" wire:navigate>
+                        {{ __('General') }}
+                    </flux:sidebar.item>
+                    <flux:sidebar.item :href="route('admin.settings.analytics')" :current="request()->routeIs('admin.settings.analytics')" wire:navigate>
+                        {{ __('Analytics') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
             </flux:sidebar.nav>
@@ -113,8 +121,8 @@
             </flux:dropdown>
         </flux:header>
 
-        <flux:main class="min-h-[calc(100vh-3.5rem)] lg:min-h-screen w-full flex flex-col items-stretch overflow-auto">
-            <div class="mx-4 mt-4 sm:mx-6 sm:mt-6 mb-4">
+        <flux:main class="min-h-[calc(100vh-3.5rem)] lg:min-h-screen w-full min-w-0 flex flex-col items-stretch overflow-x-hidden overflow-y-auto">
+            <div class="mx-4 mt-4 min-w-0 sm:mx-6 sm:mt-6 mb-4">
                 @if(isset($breadcrumbs) && is_array($breadcrumbs) && count($breadcrumbs) > 0)
                     <flux:breadcrumbs class="mb-2">
                         @foreach($breadcrumbs as $crumb)
@@ -140,11 +148,13 @@
                     <flux:callout variant="danger" icon="x-circle">{{ session('error') }}</flux:callout>
                 </div>
             @endif
-            <div class="px-4 pb-8 sm:px-6">
+            <div class="min-w-0 flex-1 px-4 pb-8 sm:px-6">
                 {{ $slot }}
             </div>
         </flux:main>
 
         @fluxScripts
+        @include('partials.app-toast')
+        @stack('scripts')
     </body>
 </html>

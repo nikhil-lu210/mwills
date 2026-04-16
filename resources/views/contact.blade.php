@@ -53,7 +53,7 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
-                        <button type="submit" class="w-full bg-navy text-white font-bold py-4 rounded-sm hover:bg-gold transition-colors duration-300 mt-2">
+                        <button type="submit" data-cta-track="contact_form_submit" class="w-full bg-navy text-white font-bold py-4 rounded-sm hover:bg-gold transition-colors duration-300 mt-2">
                             Start the Conversation
                         </button>
                     </form>
@@ -73,6 +73,7 @@
                             href="{{ $bookingUrl }}"
                             target="_blank"
                             rel="noopener noreferrer"
+                            data-cta-track="contact_booking_external"
                             class="inline-flex items-center justify-center gap-3 w-full sm:w-auto px-8 py-4 bg-gold text-navy font-bold text-base rounded-sm hover:bg-white transition-colors duration-300 shadow-lg hover:shadow-xl"
                         >
                             <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>

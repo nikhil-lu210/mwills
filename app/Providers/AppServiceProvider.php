@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Setting;
+use App\Services\Analytics\GoogleAnalyticsReportingService;
+use App\Support\AnalyticsConfiguration;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +19,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->singleton(GoogleAnalyticsReportingService::class, function () {
+            return GoogleAnalyticsReportingService::fromConfig();
+        });
     }
 
     /**
@@ -85,6 +89,8 @@ class AppServiceProvider extends ServiceProvider
                     'site.enquiry_recipient_email',
                     Setting::get('enquiry_recipient_email', $fromAddress)
                 );
+
+                AnalyticsConfiguration::syncToRuntime();
             }
         } catch (\Throwable $e) {
             // During initial install/migrations the settings table may not exist yet.

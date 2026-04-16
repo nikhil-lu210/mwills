@@ -3,6 +3,11 @@
 /public/hot
 /public/storage
 /storage/*.key
+/storage/app/google-analytics-service-account.json
+/storage/app/analytics/
+
+# Never put API keys under public/ (web-accessible)
+/public/secrets
 /storage/pail
 /vendor
 .env

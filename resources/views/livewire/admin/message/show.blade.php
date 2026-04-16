@@ -2,8 +2,8 @@
     <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
             <flux:text size="sm" class="text-zinc-500 dark:text-zinc-400">
-                <flux:link :href="route('admin.messages.index')" wire:navigate variant="ghost" class="-ms-2">
-                    ← {{ __('Back to Messages') }}
+                <flux:link href="{{ route('admin.leads.index') }}" wire:navigate variant="ghost" class="-ms-2">
+                    ← {{ __('Back to Leads') }}
                 </flux:link>
             </flux:text>
             <flux:heading class="mt-1">
@@ -15,8 +15,14 @@
         </div>
 
         <div class="flex flex-wrap gap-2">
-            <flux:badge size="sm" :color="$message->status === 'new' ? 'green' : ($message->status === 'replied' ? 'blue' : 'zinc')">
-                {{ ucfirst($message->status) }}
+            <flux:badge size="sm" :color="$message->status === 'new' ? 'green' : ($message->status === 'contacted' ? 'blue' : 'zinc')">
+                @if($message->status === 'new')
+                    {{ __('New') }}
+                @elseif($message->status === 'contacted')
+                    {{ __('Contacted') }}
+                @else
+                    {{ __('Closed') }}
+                @endif
             </flux:badge>
         </div>
     </div>
@@ -61,14 +67,14 @@
             <flux:card>
                 <flux:heading size="sm" class="mb-3">{{ __('Status') }}</flux:heading>
                 <div class="flex flex-wrap gap-2">
-                    <flux:button size="sm" variant="{{ $message->status === 'read' ? 'primary' : 'ghost' }}" wire:click="updateStatus('read')" class="justify-center">
-                        {{ __('Mark as read') }}
+                    <flux:button size="sm" variant="{{ $message->status === 'new' ? 'primary' : 'ghost' }}" wire:click="updateStatus('new')" class="justify-center">
+                        {{ __('New') }}
                     </flux:button>
-                    <flux:button size="sm" variant="{{ $message->status === 'replied' ? 'primary' : 'ghost' }}" wire:click="updateStatus('replied')" class="justify-center">
-                        {{ __('Mark as replied') }}
+                    <flux:button size="sm" variant="{{ $message->status === 'contacted' ? 'primary' : 'ghost' }}" wire:click="updateStatus('contacted')" class="justify-center">
+                        {{ __('Contacted') }}
                     </flux:button>
-                    <flux:button size="sm" variant="{{ $message->status === 'archived' ? 'primary' : 'ghost' }}" wire:click="updateStatus('archived')" class="justify-center">
-                        {{ __('Archive') }}
+                    <flux:button size="sm" variant="{{ $message->status === 'closed' ? 'primary' : 'ghost' }}" wire:click="updateStatus('closed')" class="justify-center">
+                        {{ __('Closed') }}
                     </flux:button>
                 </div>
             </flux:card>
@@ -114,7 +120,7 @@
             <flux:card>
                 <flux:heading size="sm" class="mb-2">{{ __('Reply by email') }}</flux:heading>
                 <flux:text class="mb-3 text-xs text-zinc-500 dark:text-zinc-400">
-                    {{ __('Send a one-time reply to this enquiry using the McWills email template. The first reply will mark this message as “Replied”.') }}
+                    {{ __('Send a one-time reply to this enquiry. The lead will be marked as contacted.') }}
                 </flux:text>
                 <flux:textarea
                     wire:model="replyBody"

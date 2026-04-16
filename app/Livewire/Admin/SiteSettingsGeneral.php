@@ -2,23 +2,32 @@
 
 namespace App\Livewire\Admin;
 
+use App\Livewire\Concerns\NotifiesWithAppToast;
 use App\Models\Setting;
 use Flux\Concerns\InteractsWithComponents;
 use Livewire\Component;
 
-class SiteSettings extends Component
+class SiteSettingsGeneral extends Component
 {
     use InteractsWithComponents;
+    use NotifiesWithAppToast;
 
     public string $booking_embed_url = '';
 
     public string $mail_mailer = '';
+
     public string $mail_host = '';
+
     public string $mail_port = '';
+
     public string $mail_username = '';
+
     public string $mail_password = '';
+
     public string $mail_from_address = '';
+
     public string $mail_from_name = '';
+
     public string $enquiry_recipient_email = '';
 
     public function mount(): void
@@ -38,41 +47,45 @@ class SiteSettings extends Component
     public function save(): void
     {
         $this->validate([
-            'booking_embed_url' => ['nullable', 'string', 'max:500', 'url'],
+            'booking_embed_url' => ['nullable', 'string', 'max:500'],
             'mail_mailer' => ['required', 'string', 'max:50'],
             'mail_host' => ['required', 'string', 'max:255'],
-            'mail_port' => ['required', 'integer'],
+            'mail_port' => ['required', 'integer', 'min:1', 'max:65535'],
             'mail_username' => ['nullable', 'string', 'max:255'],
             'mail_password' => ['nullable', 'string', 'max:255'],
             'mail_from_address' => ['required', 'email', 'max:255'],
             'mail_from_name' => ['required', 'string', 'max:255'],
             'enquiry_recipient_email' => ['required', 'email', 'max:255'],
-        ], [
-            'booking_embed_url.url' => __('Please enter a valid URL.'),
         ]);
+
+        if ($this->booking_embed_url !== '' && filter_var($this->booking_embed_url, FILTER_VALIDATE_URL) === false) {
+            $this->addError('booking_embed_url', __('Please enter a valid URL.'));
+
+            return;
+        }
 
         Setting::set('booking_embed_url', $this->booking_embed_url ?: null);
         Setting::set('mail_mailer', $this->mail_mailer ?: null);
         Setting::set('mail_host', $this->mail_host ?: null);
-        Setting::set('mail_port', $this->mail_port ?: null);
+        Setting::set('mail_port', (string) $this->mail_port);
         Setting::set('mail_username', $this->mail_username ?: null);
         Setting::set('mail_password', $this->mail_password ?: null);
         Setting::set('mail_from_address', $this->mail_from_address ?: null);
         Setting::set('mail_from_name', $this->mail_from_name ?: null);
         Setting::set('enquiry_recipient_email', $this->enquiry_recipient_email ?: null);
 
-        $this->toast(__('Settings saved.'), null, 5000, 'success');
-        session()->flash('success', __('Settings saved.'));
+        $this->notifyAppToast(__('Settings saved.'));
     }
 
     public function render()
     {
-        return view('livewire.admin.settings.index')
+        return view('livewire.admin.settings.general')
             ->layout('layouts.app.sidebar', [
                 'title' => __('Site settings'),
                 'breadcrumbs' => [
                     ['label' => __('Dashboard'), 'href' => route('dashboard')],
-                    ['label' => __('Site settings'), 'href' => null],
+                    ['label' => __('Settings'), 'href' => route('admin.settings.general')],
+                    ['label' => __('General'), 'href' => null],
                 ],
             ]);
     }

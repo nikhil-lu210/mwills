@@ -18,9 +18,19 @@ class ConsultationMessage extends Model
     ];
 
     public const STATUS_NEW = 'new';
-    public const STATUS_READ = 'read';
-    public const STATUS_REPLIED = 'replied';
-    public const STATUS_ARCHIVED = 'archived';
+
+    public const STATUS_CONTACTED = 'contacted';
+
+    public const STATUS_CLOSED = 'closed';
+
+    /** @deprecated Use STATUS_CONTACTED */
+    public const STATUS_READ = 'contacted';
+
+    /** @deprecated Use STATUS_CONTACTED */
+    public const STATUS_REPLIED = 'contacted';
+
+    /** @deprecated Use STATUS_CLOSED */
+    public const STATUS_ARCHIVED = 'closed';
 
     public const AREAS = [
         'Strategy & Market Intelligence',

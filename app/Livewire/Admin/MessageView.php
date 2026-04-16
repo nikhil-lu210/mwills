@@ -7,6 +7,8 @@ use App\Models\ConsultationMessage;
 use App\Models\ConsultationMessageNote;
 use Flux\Concerns\InteractsWithComponents;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class MessageView extends Component
@@ -26,14 +28,25 @@ class MessageView extends Component
         $this->message = $message->load('adminNotes.user');
         $this->notes = $message->notes ?? '';
 
-        if ($message->status === 'new') {
-            $message->update(['status' => ConsultationMessage::STATUS_READ]);
+        if ($message->status === ConsultationMessage::STATUS_NEW) {
+            $message->update(['status' => ConsultationMessage::STATUS_CONTACTED]);
             $this->message->refresh();
         }
     }
 
     public function updateStatus(string $status): void
     {
+        Validator::make(
+            ['status' => $status],
+            [
+                'status' => ['required', Rule::in([
+                    ConsultationMessage::STATUS_NEW,
+                    ConsultationMessage::STATUS_CONTACTED,
+                    ConsultationMessage::STATUS_CLOSED,
+                ])],
+            ],
+        )->validate();
+
         $this->message->update(['status' => $status]);
         $this->message->refresh();
     }
@@ -84,7 +97,7 @@ class MessageView extends Component
         );
 
         $this->message->update([
-            'status' => ConsultationMessage::STATUS_REPLIED,
+            'status' => ConsultationMessage::STATUS_CONTACTED,
             'first_reply' => $validated['replyBody'],
         ]);
         $this->message->refresh();
@@ -100,9 +113,8 @@ class MessageView extends Component
                 'title' => __('Message'),
                 'breadcrumbs' => [
                     ['label' => __('Dashboard'), 'href' => route('dashboard')],
-                    ['label' => __('Messages'), 'href' => route('admin.messages.index')],
-                    ['label' => __('All Messages'), 'href' => route('admin.messages.index')],
-                    ['label' => __('Message'), 'href' => null],
+                    ['label' => __('Leads'), 'href' => route('admin.leads.index')],
+                    ['label' => __('Lead'), 'href' => null],
                 ],
             ]);
     }

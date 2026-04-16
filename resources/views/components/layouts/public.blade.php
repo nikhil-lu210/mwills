@@ -21,6 +21,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @include('partials.ga4')
 
     <style>
         body {
@@ -94,7 +95,7 @@
                         class="text-sm font-semibold text-navy hover:text-gold transition-colors">Intelligence</a>
                     <a href="{{ route('about') }}"
                         class="text-sm font-semibold text-navy hover:text-gold transition-colors">About</a>
-                    <a href="{{ route('contact') }}"
+                    <a href="{{ route('contact') }}" data-cta-track="nav_book_consultation"
                         class="ml-4 px-6 py-2.5 bg-gold text-navy font-semibold text-sm rounded-sm hover:bg-gold/90 hover:text-navy transition-all duration-300">
                         Book a Consultation
                     </a>
@@ -132,7 +133,7 @@
                                 class="block px-3 py-2 text-base font-semibold text-navy hover:text-gold">Intelligence</a>
                             <a href="{{ route('about') }}"
                                 class="block px-3 py-2 text-base font-semibold text-navy hover:text-gold">About</a>
-                            <a href="{{ route('contact') }}"
+                            <a href="{{ route('contact') }}" data-cta-track="nav_mobile_book_consultation"
                                 class="block w-full text-left px-3 py-3 mt-4 bg-gold text-white font-semibold text-base rounded-sm">Book
                                 a Consultation</a>
                         </div>
@@ -185,7 +186,7 @@
                                 class="hover:text-white transition-colors">Intelligence Desk</a></li>
                         <li><a href="{{ route('about') }}" class="hover:text-white transition-colors">About the
                                 Practice</a></li>
-                        <li><a href="{{ route('contact') }}" class="hover:text-white transition-colors">Contact</a></li>
+                        <li><a href="{{ route('contact') }}" data-cta-track="footer_contact" class="hover:text-white transition-colors">Contact</a></li>
                     </ul>
                 </div>
             </div>

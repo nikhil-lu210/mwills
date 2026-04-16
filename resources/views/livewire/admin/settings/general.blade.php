@@ -1,4 +1,6 @@
-<div class="space-y-6 w-full max-w-2xl">
+<div class="w-full max-w-4xl space-y-6">
+    @include('livewire.admin.settings._tabs')
+
     <form wire:submit="save" class="space-y-6">
         <flux:card>
             <flux:heading size="sm" class="mb-4">{{ __('Contact page – Booking calendar') }}</flux:heading>
@@ -89,8 +91,9 @@
         </flux:card>
 
         <div class="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-end">
-            <flux:button type="submit" variant="primary" class="justify-center">
-                {{ __('Save settings') }}
+            <flux:button type="submit" variant="primary" class="justify-center" wire:loading.attr="disabled" wire:target="save">
+                <span wire:loading.remove wire:target="save">{{ __('Save settings') }}</span>
+                <span wire:loading wire:target="save">{{ __('Saving…') }}</span>
             </flux:button>
         </div>
     </form>
