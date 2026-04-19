@@ -32,8 +32,21 @@ class GoogleAnalyticsReportingService
         private string $blogPathContains,
     ) {}
 
+    /**
+     * The Data API client is provided by the google/analytics-data Composer package.
+     * If vendor is missing that package (e.g. production never ran composer install), avoid calling GA code.
+     */
+    public static function analyticsDataLibraryAvailable(): bool
+    {
+        return class_exists(RunReportRequest::class);
+    }
+
     public function isConfigured(): bool
     {
+        if (! self::analyticsDataLibraryAvailable()) {
+            return false;
+        }
+
         return $this->propertyId !== null
             && $this->propertyId !== ''
             && $this->credentialsPath !== null
