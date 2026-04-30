@@ -200,17 +200,22 @@ select:focus[data-flux-control] {
 .post-body pre { padding: 1rem; overflow-x: auto; margin-bottom: 1rem; }
 .post-body pre code { padding: 0; background: transparent; }
 
-/* Admin post view body (dark theme) */
+/* Admin post view body */
 .admin-post-body {
-    color: var(--color-zinc-200, #e4e4e7);
-    line-height: 1.7;
+    color: black !important;
 }
 .admin-post-body p { margin-bottom: 1rem; }
-.admin-post-body h1, .admin-post-body h2, .admin-post-body h3 { font-weight: 700; color: var(--color-zinc-100, #f4f4f5); margin-top: 1.5rem; margin-bottom: 0.75rem; }
+.admin-post-body h1, .admin-post-body h2, .admin-post-body h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-navy, #1a2b4a);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
 .admin-post-body h1 { font-size: 1.75rem; }
 .admin-post-body h2 { font-size: 1.5rem; }
 .admin-post-body h3 { font-size: 1.25rem; }
-.admin-post-body a { color: var(--color-amber-400, #fbbf24); text-decoration: none; }
+.admin-post-body a { color: var(--color-gold, #c9a042); text-decoration: none; }
 .admin-post-body a:hover { text-decoration: underline; }
 .admin-post-body a.post-link-with-favicon {
     display: inline-flex;
@@ -229,9 +234,21 @@ select:focus[data-flux-control] {
 }
 .admin-post-body ul, .admin-post-body ol { margin-bottom: 1rem; padding-left: 1.5rem; }
 .admin-post-body li { margin-bottom: 0.25rem; }
-.admin-post-body blockquote { border-left: 4px solid var(--color-zinc-500, #71717a); padding-left: 1rem; margin: 1rem 0; color: var(--color-zinc-400, #a1a1aa); font-style: italic; }
+.admin-post-body blockquote {
+    border-left: 4px solid var(--color-gold, #c9a042);
+    padding-left: 1rem;
+    margin: 1rem 0;
+    color: var(--color-slate, #8a9bb0);
+    font-style: italic;
+}
 .admin-post-body img { max-width: 100%; height: auto; border-radius: 0.5rem; }
 .admin-post-body .ql-video, .admin-post-body iframe { max-width: 100%; aspect-ratio: 16/9; border-radius: 0.5rem; }
-.admin-post-body pre, .admin-post-body code { background: var(--color-zinc-800, #27272a); padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.9em; color: var(--color-zinc-200); }
+.admin-post-body pre, .admin-post-body code {
+    background: var(--color-offwhite, #f4f6f9);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 0.9em;
+    color: var(--color-navy, #1a2b4a);
+}
 .admin-post-body pre { padding: 1rem; overflow-x: auto; margin-bottom: 1rem; }
 .admin-post-body pre code { padding: 0; background: transparent; }
