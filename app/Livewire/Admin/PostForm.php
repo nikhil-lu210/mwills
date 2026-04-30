@@ -15,6 +15,8 @@ class PostForm extends Component
 
     public string $title = '';
 
+    public string $slug = '';
+
     public string $category = '';
 
     public string $excerpt = '';
@@ -23,11 +25,15 @@ class PostForm extends Component
 
     public bool $publish = false;
 
+    /** @internal Slug derived from the title before the latest title change (create flow only). */
+    public string $slugBeforeTitleChange = '';
+
     public function mount(?Post $post = null): void
     {
         if ($post && $post->exists) {
             $this->postId = $post->id;
             $this->title = $post->title;
+            $this->slug = $post->slug;
             $this->category = $post->category ?? '';
             $this->excerpt = $post->excerpt ?? '';
             $this->body = $post->body ?? '';
@@ -35,21 +41,53 @@ class PostForm extends Component
         }
     }
 
-    public function updatedTitle(string $value): void
+    public function updatingTitle(): void
     {
         if (! $this->postId) {
-            $this->dispatch('slug-from-title', slug: Str::slug($value));
+            $this->slugBeforeTitleChange = Str::slug($this->title);
+        }
+    }
+
+    public function updatedTitle(string $value): void
+    {
+        if ($this->postId) {
+            return;
+        }
+        $newSlug = Str::slug($value);
+        if ($this->slug === '' || $this->slug === $this->slugBeforeTitleChange) {
+            $this->slug = $newSlug;
         }
     }
 
     public function save(): void
     {
+        $this->ensureSlugFromTitle();
+
         try {
             $validated = $this->validate([
                 'title' => ['required', 'string', 'max:255'],
+                'slug' => [
+                    'required',
+                    'string',
+                    'max:255',
+                    function (string $attribute, mixed $value, \Closure $fail): void {
+                        if (Str::slug((string) $value) === '') {
+                            $fail(__('Could not build a URL slug from the title or slug field.'));
+                        }
+                    },
+                ],
                 'category' => ['nullable', 'string', 'max:100'],
                 'excerpt' => ['nullable', 'string', 'max:500'],
-                'body' => ['nullable', 'string'],
+                'body' => [
+                    'required',
+                    'string',
+                    function (string $attribute, mixed $value, \Closure $fail): void {
+                        $text = trim(html_entity_decode(strip_tags((string) $value), ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+                        if (mb_strlen($text) < 10) {
+                            $fail(__('Post body cannot be empty.'));
+                        }
+                    },
+                ],
                 'publish' => ['boolean'],
             ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -58,12 +96,13 @@ class PostForm extends Component
             throw $e;
         }
 
-        $slug = Str::slug($validated['title']);
+        $finalSlug = $this->uniqueSlug(Str::slug($validated['slug']), $this->postId);
+
         if ($this->postId) {
             $post = Post::findOrFail($this->postId);
             $post->update([
                 'title' => $validated['title'],
-                'slug' => $post->slug === $slug ? $post->slug : $this->uniqueSlug($slug, $post->id),
+                'slug' => $finalSlug,
                 'category' => $validated['category'] ?: null,
                 'excerpt' => $validated['excerpt'] ?: null,
                 'body' => $validated['body'] ?: null,
@@ -75,7 +114,7 @@ class PostForm extends Component
         } else {
             $post = Post::create([
                 'title' => $validated['title'],
-                'slug' => $this->uniqueSlug($slug),
+                'slug' => $finalSlug,
                 'category' => $validated['category'] ?: null,
                 'excerpt' => $validated['excerpt'] ?: null,
                 'body' => $validated['body'] ?: null,
@@ -88,6 +127,25 @@ class PostForm extends Component
         }
     }
 
+    /**
+     * If the slug is still empty (e.g. title was filled but Livewire never ran updatedTitle, or only native HTML validation ran),
+     * derive it from the title so authors never need to type it.
+     */
+    private function ensureSlugFromTitle(): void
+    {
+        if (Str::slug($this->slug) !== '') {
+            return;
+        }
+
+        $fromTitle = Str::slug($this->title);
+        if ($fromTitle !== '') {
+            $this->slug = $fromTitle;
+        }
+    }
+
+    /**
+     * Ensure a unique slug in the database by appending -1, -2, … when the base is taken.
+     */
     private function uniqueSlug(string $slug, ?int $excludeId = null): string
     {
         $base = $slug;

@@ -1,4 +1,4 @@
-<div class="space-y-6 w-full max-w-5xl">
+<div class="space-y-6 w-full max-w-5xl" wire:key="post-form-{{ $postId ?? 'new' }}">
     <div>
         <flux:text size="sm" class="text-zinc-500 dark:text-zinc-400">
             <flux:link :href="route('admin.posts.index')" wire:navigate variant="ghost" class="-ms-2">

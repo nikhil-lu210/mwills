@@ -39,9 +39,9 @@
             </p>
         @endif
 
-        {{-- Body (external links get a favicon for pasted URLs) --}}
+        {{-- Body (Quill may already include favicon markup for paste-as-link URLs) --}}
         <div class="post-body">
-            {!! \App\Support\PostBody::enhanceLinksWithFavicons($post->body ?? '') !!}
+            {!! $post->body ?? '' !!}
         </div>
 
         <footer class="mt-12 pt-8 border-t border-gray-200">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class PostImageUploadController extends Controller
@@ -22,8 +23,14 @@ class PostImageUploadController extends Controller
         $name = Str::uuid().'.'.$file->getClientOriginalExtension();
         $path = $file->storeAs('posts', $name, 'public');
 
+        if (! Storage::disk('public')->exists($path)) {
+            return response()->json([
+                'message' => __('The file was not found on disk after upload. Run `php artisan storage:link` and confirm the public disk is writable.'),
+            ], 422);
+        }
+
         return response()->json([
-            'url' => '/storage/'.$path,
+            'url' => asset(Storage::url($path)),
         ]);
     }
 }

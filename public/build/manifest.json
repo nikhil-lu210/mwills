@@ -1,6 +1,6 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app-CEOFCj7A.css",
+    "file": "assets/app-B2Vx4RuG.css",
     "src": "resources/css/app.css",
     "isEntry": true,
     "name": "app",
@@ -13,5 +13,14 @@
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true
+  },
+  "resources/js/post-form-quill.js": {
+    "file": "assets/post-form-quill-ynPeiosd.js",
+    "name": "post-form-quill",
+    "src": "resources/js/post-form-quill.js",
+    "isEntry": true,
+    "css": [
+      "assets/post-form-quill-Bf4bJ6eu.css"
+    ]
   }
 }

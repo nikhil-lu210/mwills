@@ -4,7 +4,7 @@
             <div class="col-span-12 md:col-span-8">
                 <flux:field>
                     <flux:label>{{ __('Title') }}</flux:label>
-                    <flux:input wire:model="title" placeholder="{{ __('Post title') }}" required />
+                    <flux:input wire:model.live.debounce.400ms="title" placeholder="{{ __('Post title') }}" required />
                     <flux:error name="title" />
                 </flux:field>
             </div>
@@ -17,6 +17,17 @@
                         @endforeach
                     </flux:select>
                     <flux:error name="category" />
+                </flux:field>
+            </div>
+
+            <div class="col-span-12">
+                <flux:field>
+                    <flux:label>{{ __('Slug') }}</flux:label>
+                    <flux:input wire:model="slug" dir="ltr" class="font-mono text-sm" placeholder="{{ __('Auto-filled from title; edit if needed') }}" />
+                    <flux:error name="slug" />
+                    <flux:text class="mt-1 block text-xs text-zinc-500 dark:text-zinc-400">
+                        {{ __('Generated from the title as you type (you can override it). On edit, it stays the same unless you change it here. If another post already uses the same slug, a number suffix is added when you save.') }}
+                    </flux:text>
                 </flux:field>
             </div>
 
