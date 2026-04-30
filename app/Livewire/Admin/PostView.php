@@ -14,7 +14,7 @@ class PostView extends Component
 
     public function mount(Post $post): void
     {
-        $this->post = $post;
+        $this->post = $post->loadMissing('user');
     }
 
     public function togglePublish(): void
@@ -28,7 +28,7 @@ class PostView extends Component
             $this->toast(__('Post published. It is now visible on the public site.'), null, 5000, 'success');
             session()->flash('success', __('Post published.'));
         }
-        $this->post->refresh();
+        $this->post->refresh()->loadMissing('user');
     }
 
     public function delete(): void

@@ -123,7 +123,7 @@ class PostForm extends Component
             ]);
             $this->toast(__('Post created successfully.'), null, 5000, 'success');
             session()->flash('success', __('Post created successfully.'));
-            $this->redirect(route('admin.posts.edit', $post), navigate: true);
+            $this->redirect(route('admin.posts.show', $post), navigate: true);
         }
     }
 
